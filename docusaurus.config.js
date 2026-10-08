@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'LAB-4399: From VMware to OpenShift Virtualization',
   tagline: 'A Hands-On Migration Lab — IBM TechXchange 2026',
-  favicon: 'img/openshift-virt.svg',
+  favicon: 'img/favicon-32.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -85,7 +85,7 @@ const config = {
         title: 'LAB-4399',
         logo: {
           alt: 'OpenShift Virtualization',
-          src: 'img/openshift-virt.svg',
+          src: 'img/favicon-32.png',
           width: 28,
           height: 28,
         },
