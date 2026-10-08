@@ -40,6 +40,23 @@ const sidebars = {
         },
       ],
     },
+    {
+      type: 'category',
+      label: 'Useful Links',
+      collapsed: false,
+      items: [
+        {
+          type: 'link',
+          label: 'IBM Cloud Virtualization Solutions',
+          href: 'https://cloud.ibm.com/docs/virtualization-solutions',
+        },
+        {
+          type: 'link',
+          label: 'IBM OpenShift Virtualization',
+          href: 'https://www.ibm.com/products/openshift-virtualization',
+        },
+      ],
+    },
   ],
 };
 
