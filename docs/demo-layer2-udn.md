@@ -4,11 +4,47 @@ sidebar_position: 2
 
 # Provision a VM – Layer 2 Primary UDN
 
-A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC pinning. The IP is DHCP-assigned from the CUDN subnet and persistent for the life of the VM.
+## Overview & Purpose
+In traditional container platforms, virtual machines share the standard Kubernetes pod network (OVN-Kubernetes overlay), which can introduce NAT complexity or dynamic IP reassignment across pod lifecycles. OpenShift Virtualization introduces **User Defined Networks (UDNs)** and **Cluster User Defined Networks (CUDNs)** to provide dedicated, isolated software-defined networks for virtual machines.
+
+In this lab, you will deploy a Linux virtual machine connected to a **Layer 2 Primary CUDN** (`layer2-routed-1`). This architecture creates an isolated Geneve-encapsulated L2 broadcast domain across the cluster nodes:
+- **No VPC VNI or MAC Pinning Required**: The VM receives its IP directly via internal OVN DHCP from the CUDN subnet.
+- **IP Persistence**: The IP address is bound to the VirtualMachine lifecycle and remains stable across restarts.
+- **Egress Routing via Pod-Router**: Outbound traffic to the intranet/internet is routed seamlessly through a designated central pod-router appliance connected to the VPC uplink subnet.
 
 ---
 
-## Step 1 – Access the OpenShift Web Console
+## Learning Objectives
+By completing this lab, you will be able to:
+- **Understand** the architecture and benefits of Layer 2 Geneve-encapsulated CUDNs in OpenShift.
+- **Provision** a virtual machine with a custom Layer-2 network binding in the OpenShift Web Console.
+- **Verify** internal guest OS network configuration and persistent IP assignment.
+- **Test** outbound connectivity from the VM through the pod-router to external services.
+
+---
+
+## Architecture Diagram
+
+The diagram below illustrates how your lab VM attaches to the shared Layer 2 CUDN (`10.26.3.0/24`) and routes outbound traffic through the pod-router:
+
+![Layer 2 Primary UDN Architecture](/img/lab/arch-layer2-udn.png)
+
+---
+
+## Key Concepts
+
+- **Primary CUDN (Cluster User Defined Network)**: A cluster-scoped network definition that spans multiple lab namespaces, providing private L2 overlay connectivity.
+- **Layer 2 Binding**: Direct layer-2 bridging inside the guest pod without VXLAN/Geneve encapsulation overhead at the container interface.
+- **Pod-Router Gateway**: A containerized router pod bridging the internal L2 CUDN to the VPC network (`10.26.2.0/24` on VLAN 220), allowing VPC custom routes to reach VM workloads.
+- **Multi-Network Security Policies**: OpenShift enables micro-segmentation rules on secondary CUDNs, functioning like **Distributed Firewalls (DFW)** in VMware NSX.
+
+⏱️ **Estimated Completion Time:** 15 minutes
+
+---
+
+## Hands-On Steps
+
+### Step 1 – Access the OpenShift Web Console
 
 **a.** Open [cloud.ibm.com](https://cloud.ibm.com) and confirm the account selector (upper right) is set to **2326338 – ITZ-VMWARE**.
 
@@ -32,15 +68,15 @@ A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC
 
 ---
 
-## Step 2 – Navigate to Virtualization
+### Step 2 – Navigate to Virtualization
 
-**a.** In the dropdown, click **Virtualization** → **VirtualMachines**. Leave the namespace set to **All Namespaces**.
+**a.** In the dropdown, click **Virtualization** → **VirtualMachines**. Set the project selector at the top to your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
 
 ![Virtualization → VirtualMachines menu](/img/lab/image20.png)
 
 ---
 
-## Step 3 – Create a Virtual Machine from Instance Type
+### Step 3 – Create a Virtual Machine from Instance Type
 
 **a.** Click **Create** → **From Instance Type**.
 
@@ -48,7 +84,7 @@ A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC
 
 ---
 
-## Step 4 – Create the VM
+### Step 4 – Configure and Create the VM
 
 **a.** Select **centos-stream9**.
 
@@ -76,27 +112,27 @@ A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC
 
 ---
 
-## Step 5 – Watch the VM Start
+### Step 5 – Watch the VM Start
 
-**a.** Watch the status column update:
+**a.** Watch the status column update in the console:
 
-```
+```text
 Provisioning → Starting → Running
 ```
 
 ![Status column showing Provisioning to Running](/img/lab/image38.png)
 
-**b.** View the Network details.
+**b.** View the Network details to verify the assigned IP address.
 
 ---
 
-## Step 6 – Open the In-Browser Console
+### Step 6 – Open the In-Browser Console & Validate Connectivity
 
 **a.** In the VM Details section, click **Open web console**.
 
 ![Open web console button](/img/lab/image41.png)
 
-**b.** Log in with the guest login credentials. Then run:
+**b.** Log in with the guest login credentials (`centos` / `ChangeMe123!`). Then check the IP configuration:
 
 ```bash
 ip addr show
@@ -106,7 +142,7 @@ ip addr show
 
 ![Console with ip addr show output](/img/lab/image44.png)
 
-**c.** Then run:
+**c.** Verify outbound reachability through the pod router:
 
 ```bash
 curl http://lab.techzone.ibm.local/
@@ -114,4 +150,4 @@ curl http://lab.techzone.ibm.local/
 
 ---
 
-🎉 **Congratulations, you have completed part 1 of this lab!**
+🎉 **Congratulations, you have completed Lab 1! You have successfully provisioned a cloud-native VM on a Layer 2 Primary CUDN.**
