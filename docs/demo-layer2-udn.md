@@ -6,8 +6,6 @@ sidebar_position: 2
 
 A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC pinning. The IP is DHCP-assigned from the CUDN subnet and persistent for the life of the VM.
 
-![Layer 2 UDN architecture diagram](/img/lab/image8.png)
-
 ---
 
 ## Step 1 – Access the OpenShift Web Console
@@ -66,8 +64,6 @@ A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC
 
 **d.** ⚠️ **DO NOT CLICK CREATE.** Click **Customize VirtualMachine**.
 
-![Customize VirtualMachine button](/img/lab/image29.png)
-
 **e.** In the Customize screen, click the **Configuration** tab, then navigate to the **Network** tab on the left. Click the kebab menu (⋮) on the default interface row and choose **Edit**.
 
 ![Configuration → Network tab with kebab Edit](/img/lab/image34.png)
@@ -77,8 +73,6 @@ A VM whose entire pod network is a Layer 2 primary CUDN. No VNI, no VLAN, no MAC
 ![Layer-2 network binding type selected](/img/lab/image35.png)
 
 **g.** Click **Create VirtualMachine**.
-
-![Create VirtualMachine button](/img/lab/image37.png)
 
 ---
 
@@ -93,8 +87,6 @@ Provisioning → Starting → Running
 ![Status column showing Provisioning to Running](/img/lab/image38.png)
 
 **b.** View the Network details.
-
-![VM Network details](/img/lab/image39.png)
 
 ---
 

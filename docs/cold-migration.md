@@ -8,8 +8,6 @@ This end-to-end lab takes you from a clean ROVS cluster to a successfully migrat
 
 MTV migrates VMs to Red Hat OpenShift Virtualization running on Red Hat OpenShift.
 
-![MTV migration overview](/img/lab/image90.png)
-
 ---
 
 ## What MTV Does
@@ -51,8 +49,6 @@ MTV migrates VMs to Red Hat OpenShift Virtualization running on Red Hat OpenShif
 | Source network | `6a7c55c9e78638eb8066f39-segment` |
 | Target network | `lab-4399-ph-lab-<your lab number>/lab-4399-ph-lab-<your lab number>` |
 
-![Network map form filled out](/img/lab/image96.png)
-
 **d.** Click **Create**.
 
 ---
@@ -77,8 +73,6 @@ MTV migrates VMs to Red Hat OpenShift Virtualization running on Red Hat OpenShif
 | Target provider | `host` |
 | Source storage | `6a7c55c9e78638eb8066f39-storage` |
 | Target storage | `ocs-storagecluster-ceph-rpd` |
-
-![Storage map form filled out](/img/lab/image101.png)
 
 **d.** Click **Create**.
 

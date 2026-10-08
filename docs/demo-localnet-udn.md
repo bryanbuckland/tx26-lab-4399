@@ -6,8 +6,6 @@ sidebar_position: 3
 
 Localnet networking is the most "like for like" network setup when compared to on-premise deployments of Red Hat OpenShift Virtualization Engine. Localnet is the simplest and easiest to understand, but it may not be the most effective way to scale deployments of VMs across ROVS.
 
-![Localnet UDN architecture overview](/img/lab/image45.png)
-
 ---
 
 ## Step 1 – Create the Virtual Network Interface (VNI)
@@ -39,8 +37,6 @@ Localnet networking is the most "like for like" network setup when compared to o
 ![Network configuration with subnet selection](/img/lab/image54.png)
 
 **b.** Leave all remaining fields as their defaults. **DO NOT CLICK CREATE.** Navigate back to the Virtual network interfaces page by clicking the tab at the top of the page.
-
-![Navigate back to VNI list](/img/lab/image56.png)
 
 ---
 
@@ -104,8 +100,6 @@ Localnet networking is the most "like for like" network setup when compared to o
 
 > ⚠️ **DO NOT CLICK Create VirtualMachine.** Click **Customize VirtualMachine** — the default wizard puts the VM on the pod network with no fixed MAC. You need to set the Localnet network and MAC address before creation.
 
-![Customize VirtualMachine warning](/img/lab/image69.png)
-
 ---
 
 ## Step 7 – Open Configuration
@@ -145,8 +139,6 @@ Click **Save**.
 
 **a.** Scroll down and click the blue **Create VirtualMachine** button at the bottom of the screen.
 
-![Create VirtualMachine button](/img/lab/image37.png)
-
 ---
 
 ## Step 11 – Watch the VM Boot
@@ -156,8 +148,6 @@ Click **Save**.
 ```
 Provisioning → Starting → Running
 ```
-
-![VM status progressing to Running](/img/lab/image83.png)
 
 ---
 
