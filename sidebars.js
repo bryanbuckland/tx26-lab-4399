@@ -41,6 +41,10 @@ const sidebars = {
       ],
     },
     {
+      type: 'html',
+      value: '<hr style="margin: 0.75rem 0.75rem; border-color: #dde5ee;" />',
+    },
+    {
       type: 'category',
       label: 'Useful Links',
       collapsed: false,
