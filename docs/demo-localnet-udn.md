@@ -10,7 +10,7 @@ When migrating enterprise VMware workloads to the cloud, applications frequently
 **Localnet CUDNs** bridge OpenShift Virtualization directly to the underlying IBM Cloud VPC network on Bare Metal infrastructure:
 - **Dedicated Secondary Localnet CUDN**: Each lab project (`lab-4399-ph-lab-N`) has a dedicated Localnet CUDN scoped to its namespace with an access VLAN (VLANs 400–439).
 - **Host-Level OVS Bridging & Bare Metal VNIs**: IBM Cloud VPC subnets are Layer 3 networks (there are no native VLANs in a VPC). VLAN separation is enabled through **Virtual Network Interfaces (VNIs)** attached to the Bare Metal worker nodes. When a VNI is associated with a node's PCI interface using a VLAN ID, outbound traffic is automatically 802.1Q tagged, and inbound tagged traffic is directed to the appropriate interface.
-- **VPC Identity & MAC Address Binding**: In ROVS, VNIs are attached directly at the cluster level to the worker nodes. Pinning the VM's virtual NIC MAC address to its assigned VPC VNI MAC ensures deterministic IP allocation from the IBM Cloud DHCP service while inheriting all VPC security group and routing policies.
+- **VPC Identity & MAC Address Binding**: In ROVS, VNIs are attached directly at the cluster level to the worker nodes. Pinning the VM's virtual NIC MAC address to its assigned VPC VNI MAC ensures deterministic IP allocation from the IBM Cloud DHCP service while inheriting all VPC security group and routing policies. *(Note: MAC learning is also supported on the VNI attachment, allowing custom MAC addresses and statically configured IPs within the VPC subnet range).*
 
 ---
 
@@ -38,7 +38,7 @@ IBM Cloud VPC subnets are Layer 3 CIDR blocks and do not have native VLANs. On *
 ## Key Concepts
 
 - **Virtual Network Interface (VNI)**: An IBM Cloud VPC resource providing dedicated IP, MAC address, and security group enforcement.
-- **VNI Attachment**: Binds a VNI to a Bare Metal PCI interface with an assigned VLAN ID, mapping tagged host traffic into a specific VPC subnet.
+- **VNI Attachment & MAC Learning**: Binds a VNI to a Bare Metal PCI interface with an assigned VLAN ID, mapping tagged host traffic into a specific VPC subnet while supporting MAC learning for custom MACs and static IPs.
 - **Localnet CUDN**: An OVN-Kubernetes network attachment that bridges VM traffic directly to the physical/virtual network on Bare Metal worker nodes via OVS.
 - **MAC Address Pinning**: Matching the guest VM's virtual NIC MAC to the VPC VNI MAC to ensure deterministic IP allocation from VPC DHCP.
 - **Cloud-init**: Industry-standard package for automating early guest OS initialization (credentials, SSH keys, network configs).
