@@ -2,41 +2,42 @@
 sidebar_position: 2
 ---
 
-# Provision a VM – Layer 2 Primary UDN
+# Provision a VM – Secondary Layer 2 CUDN (Routed)
 
 ## Overview & Purpose
-In traditional container platforms, virtual machines share the standard Kubernetes pod network (OVN-Kubernetes overlay), which can introduce NAT complexity or dynamic IP reassignment across pod lifecycles. OpenShift Virtualization introduces **User Defined Networks (UDNs)** and **Cluster User Defined Networks (CUDNs)** to provide dedicated, isolated software-defined networks for virtual machines.
+In OpenShift, workloads and virtual machines are deployed within **Projects (Namespaces)**. While default container networking provides a cluster-wide flat overlay, OpenShift Virtualization supports **Secondary Cluster User Defined Networks (CUDNs)** to deliver dedicated, software-defined Layer 2 broadcast domains across cluster nodes.
 
-In this lab, you will deploy a Linux virtual machine connected to a **Layer 2 Primary CUDN** (`layer2-routed-1`). This architecture creates an isolated Geneve-encapsulated L2 broadcast domain across the cluster nodes:
-- **No VPC VNI or MAC Pinning Required**: The VM receives its IP directly via internal OVN DHCP from the CUDN subnet.
-- **IP Persistence**: The IP address is bound to the VirtualMachine lifecycle and remains stable across restarts.
-- **Egress Routing via Pod-Router**: Outbound traffic to the intranet/internet is routed seamlessly through a designated central pod-router appliance connected to the VPC uplink subnet.
+In this lab, you will provision a Linux virtual machine attached to a **Secondary Layer 2 CUDN** (`layer2-routed-1`):
+- **Shared Geneve-Encapsulated L2 Overlay**: The CUDN is cluster-scoped and shared across all lab tenant projects (`lab-4399-ph-lab-1` through `lab-4399-ph-lab-40`), allowing VMs across different namespaces to participate in the same private L2 network.
+- **Routing & DHCP via Pod-Router Appliance**: Instead of requiring dedicated IBM Cloud VPC VNIs or MAC pinning for every VM, a centralized containerized **pod-router** (`pod-router-lab-4399-ph-layer2-routed-1`) running in the cluster serves DHCP (`10.26.3.10`–`10.26.3.254`) and acts as the default gateway (`10.26.3.1`).
+- **Seamless VPC Ingress & Egress**: The pod-router bridges traffic through an uplink interface on VLAN 220 to the IBM Cloud VPC FW Uplink subnet (`10.26.2.0/24`). A custom route in the IBM Cloud VPC directs traffic for `10.26.3.0/24` to the pod-router.
+- **Distributed Security Policies**: OpenShift multi-network policies can be applied to this secondary CUDN to provide micro-segmentation directly at each VM's virtual NIC, functioning just like **Distributed Firewalls (DFW)** in VMware NSX.
 
 ---
 
 ## Learning Objectives
 By completing this lab, you will be able to:
-- **Understand** the architecture and benefits of Layer 2 Geneve-encapsulated CUDNs in OpenShift.
-- **Provision** a virtual machine with a custom Layer-2 network binding in the OpenShift Web Console.
-- **Verify** internal guest OS network configuration and persistent IP assignment.
-- **Test** outbound connectivity from the VM through the pod-router to external services.
+- **Understand** the architecture and benefits of Secondary Layer 2 CUDNs with pod-based routing in OpenShift Virtualization.
+- **Provision** a virtual machine attached to the shared Layer 2 CUDN using the OpenShift Web Console.
+- **Verify** that the guest OS acquires its IP address from the pod-router DHCP server and validates persistence.
+- **Test** end-to-end network reachability routed through the pod-router to external services.
 
 ---
 
 ## Architecture Diagram
 
-The diagram below illustrates how your lab VM attaches to the shared Layer 2 CUDN (`10.26.3.0/24`) and routes outbound traffic through the pod-router:
+The diagram below illustrates the shared Secondary Layer 2 CUDN topology, showing how tenant VMs in different projects communicate across the Geneve overlay and route north-south via the pod-router:
 
-![Layer 2 Primary UDN Architecture](/img/lab/arch-layer2-udn.png)
+![Secondary Layer 2 CUDN Architecture](/img/lab/arch-layer2-udn.png)
 
 ---
 
 ## Key Concepts
 
-- **Primary CUDN (Cluster User Defined Network)**: A cluster-scoped network definition that spans multiple lab namespaces, providing private L2 overlay connectivity.
-- **Layer 2 Binding**: Direct layer-2 bridging inside the guest pod without VXLAN/Geneve encapsulation overhead at the container interface.
-- **Pod-Router Gateway**: A containerized router pod bridging the internal L2 CUDN to the VPC network (`10.26.2.0/24` on VLAN 220), allowing VPC custom routes to reach VM workloads.
-- **Multi-Network Security Policies**: OpenShift enables micro-segmentation rules on secondary CUDNs, functioning like **Distributed Firewalls (DFW)** in VMware NSX.
+- **Secondary CUDN (Cluster User Defined Network)**: A cluster-scoped network that provides an isolated secondary network interface to VMs across one or more projects.
+- **Layer 2 Geneve Overlay**: Encapsulated overlay network carrying tenant traffic between OpenShift worker nodes without requiring physical network reconfiguration.
+- **Pod-Router Gateway**: A specialized router pod that provides DHCP address allocation, default gateway routing, and uplink bridging to the VPC network.
+- **Multi-Network Policies**: Declarative security rules enforced by OVN-Kubernetes on secondary networks to filter traffic between VMs (analogous to NSX Distributed Firewall).
 
 ⏱️ **Estimated Completion Time:** 15 minutes
 
@@ -104,7 +105,7 @@ The diagram below illustrates how your lab VM attaches to the shared Layer 2 CUD
 
 ![Configuration → Network tab with kebab Edit](/img/lab/image34.png)
 
-**f.** In the **Network** dropdown, select the **Layer-2** network binding type. Click **Save**.
+**f.** In the **Network** dropdown, select the **Layer-2** network binding type attached to the shared CUDN (`lab-4399-ph-layer2-routed-1`). Click **Save**.
 
 ![Layer-2 network binding type selected](/img/lab/image35.png)
 
@@ -122,7 +123,7 @@ Provisioning → Starting → Running
 
 ![Status column showing Provisioning to Running](/img/lab/image38.png)
 
-**b.** View the Network details to verify the assigned IP address.
+**b.** View the Network details to verify the assigned IP address (in the `10.26.3.0/24` range assigned by the pod-router).
 
 ---
 
@@ -150,4 +151,4 @@ curl http://lab.techzone.ibm.local/
 
 ---
 
-🎉 **Congratulations, you have completed Lab 1! You have successfully provisioned a cloud-native VM on a Layer 2 Primary CUDN.**
+🎉 **Congratulations, you have completed Lab 1! You have successfully provisioned a VM connected to a shared Secondary Layer 2 CUDN with pod-router gateway routing.**

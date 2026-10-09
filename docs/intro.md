@@ -54,7 +54,7 @@ The hands-on curriculum is divided into two modules covering modern VM provision
 
 | Lab Section | Focus Area | Description |
 | :--- | :--- | :--- |
-| **[1. Provision a VM – Layer 2 Primary UDN](./demo-layer2-udn)** | Cloud-Native Networking | Deploy a VM on a Layer 2 Geneve overlay with internal DHCP and persistent IP management. |
+| **[1. Provision a VM – Secondary Layer 2 CUDN](./demo-layer2-udn)** | Cloud-Native Overlay & Routing | Deploy a VM on a shared Geneve L2 CUDN with DHCP and north-south routing via a pod-router. |
 | **[2. Provision a VM – Localnet UDN](./demo-localnet-udn)** | Enterprise VPC Networking | Deploy a VM with a dedicated VPC VNI and MAC pinning for a like-for-like on-premise networking experience. |
 | **[3. Cold Migration with MTV](./cold-migration)** | Workload Migration | Migrate an offline VMware VM to OpenShift using MTV, `virt-v2v`, and ODF Ceph storage. |
 | **[4. Warm Migration with MTV](./warm-migration)** | Minimal Downtime Migration | Execute a multi-stage migration with live precopy block replication and scheduled cutover. |

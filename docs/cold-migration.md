@@ -30,6 +30,12 @@ The diagram below illustrates the end-to-end migration topology connecting VMwar
 
 ![MTV Migration Architecture](/img/lab/arch-migrate-mtv.png)
 
+### Target Network Architecture for Migrated Workloads
+
+Once migrated, the workload attaches to the shared **Localnet CUDN** (`lab-common` / VLAN 500) on the dedicated VPC Subnet for migrated VMs (`10.26.6.0/24`):
+
+![Target Network Architecture for Migrated VMs](/img/lab/arch-migrate-target-net.png)
+
 ---
 
 ## Key Concepts
