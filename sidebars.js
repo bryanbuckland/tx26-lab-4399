@@ -15,7 +15,7 @@ const sidebars = {
         {
           type: 'doc',
           id: 'demo-layer2-udn',
-          label: 'Layer 2 Primary UDN',
+          label: 'Secondary Layer 2 CUDN',
         },
         {
           type: 'doc',
