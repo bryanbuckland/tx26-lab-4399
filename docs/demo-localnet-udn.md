@@ -9,8 +9,8 @@ When migrating enterprise VMware workloads to the cloud, applications frequently
 
 **Localnet CUDNs** bridge OpenShift Virtualization directly to the underlying IBM Cloud VPC network on Bare Metal infrastructure:
 - **Dedicated Secondary Localnet CUDN**: Each lab project (`lab-4399-ph-lab-N`) has a dedicated Localnet CUDN scoped to its namespace with an access VLAN (VLANs 400–439).
-- **Host-Level OVS Bridging & Bare Metal VNIs**: IBM Cloud VPC subnets are Layer 3 networks (there are no native VLANs in a VPC). VLAN separation is enabled through **Virtual Network Interfaces (VNIs)** attached to the Bare Metal worker nodes. When a VNI is associated with a node's PCI interface using a VLAN ID, outbound traffic is automatically 802.1Q tagged, and inbound tagged traffic is directed to the appropriate interface.
-- **VPC Identity & MAC Address Binding**: In ROVS, VNIs are attached directly at the cluster level to the worker nodes. Pinning the VM's virtual NIC MAC address to its assigned VPC VNI MAC ensures deterministic IP allocation from the IBM Cloud DHCP service while inheriting all VPC security group and routing policies. *(Note: MAC learning is also supported on the VNI attachment, allowing custom MAC addresses and statically configured IPs within the VPC subnet range).*
+- **VPC Subnets & Bare Metal VNIs**: IBM Cloud VPC subnets are pure Layer 3 networks without native VLANs. On Bare Metal worker nodes, Open vSwitch (OVS) tags VM traffic with a local VLAN ID, which the attached **Virtual Network Interface (VNI)** maps directly into the target VPC subnet.
+- **MAC Pinning & MAC Learning**: Pinning the VM's MAC address to the VNI provides automatic DHCP IP assignment from the VPC. In addition, VNI MAC learning supports custom MAC addresses and static IP configurations within the subnet range.
 
 ---
 
@@ -28,10 +28,6 @@ By completing this lab, you will be able to:
 The diagram below illustrates the per-lab Secondary Localnet architecture. Each lab project connects to a dedicated, single-namespace **Localnet CUDN** (VLANs 400–439), bridged via Open vSwitch (OVS) on Bare Metal worker nodes to its designated `/29` VPC subnet through attached IBM Cloud Virtual Network Interfaces (VNIs):
 
 ![Localnet UDN & VPC VNI Architecture](/img/lab/arch-localnet-udn.png)
-
-:::info Understanding VLANs in IBM Cloud VPC
-IBM Cloud VPC subnets are Layer 3 CIDR blocks and do not have native VLANs. On **VPC Bare Metal servers**, VLAN interfaces allow Open vSwitch (OVS) to tag traffic with a VLAN ID. The IBM Cloud VPC Bare Metal infrastructure uses the attached VNI to map that VLAN ID directly into the target VPC subnet.
-:::
 
 ---
 
