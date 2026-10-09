@@ -5,12 +5,12 @@ sidebar_position: 3
 # Provision a VM – Localnet UDN
 
 ## Overview & Purpose
-When migrating enterprise VMware workloads to the cloud, applications frequently require direct Layer 2 adjacency to corporate VPC subnets, static IP/MAC preservation, and native integration with cloud security groups and routing tables. 
+When migrating enterprise VMware workloads to the cloud, applications frequently require direct Layer 2 adjacency to corporate VPC subnets, static IP/MAC preservation, and native integration with cloud security groups and routing tables.
 
-**Localnet UDN** bridges OpenShift Virtualization directly to the underlying IBM Cloud VPC Subnet via bare-metal PCI network attachments and **IBM Cloud Virtual Network Interfaces (VNIs)**. This delivers a true "like-for-like" on-premises virtualization networking experience:
-- **Direct VPC Subnet Attachment**: The VM's virtual network interface bridges directly through Open vSwitch (OVS) on dedicated VLANs (400–439) into a dedicated `/29` VPC subnet.
-- **VPC VNI & MAC Pinning**: By pinning the VM's virtual NIC MAC address to the IBM Cloud VPC VNI MAC address, the VM deterministically receives its assigned VPC IP address directly from the IBM Cloud DHCP service.
-- **Enterprise Security**: The VM inherits VPC security group rules, network ACLs, and routing policies enforced at the VPC layer.
+**Localnet CUDNs** bridge OpenShift Virtualization directly to the underlying IBM Cloud VPC network on Bare Metal infrastructure:
+- **Dedicated Secondary Localnet CUDN**: Each lab project (`lab-4399-ph-lab-N`) has a dedicated Localnet CUDN scoped to its namespace with an access VLAN (VLANs 400–439).
+- **Host-Level OVS Bridging & Bare Metal VNIs**: IBM Cloud VPC subnets are Layer 3 networks (there are no native VLANs in a VPC). VLAN separation is enabled through **Virtual Network Interfaces (VNIs)** attached to the Bare Metal worker nodes. When a VNI is associated with a node's PCI interface using a VLAN ID, outbound traffic is automatically 802.1Q tagged, and inbound tagged traffic is directed to the appropriate interface.
+- **VPC Identity & MAC Address Binding**: In ROVS, VNIs are attached directly at the cluster level to the worker nodes. Pinning the VM's virtual NIC MAC address to its assigned VPC VNI MAC ensures deterministic IP allocation from the IBM Cloud DHCP service while inheriting all VPC security group and routing policies.
 
 ---
 
@@ -25,18 +25,23 @@ By completing this lab, you will be able to:
 
 ## Architecture Diagram
 
-The diagram below illustrates the dedicated per-lab Localnet architecture, showing how each participant's VM maps through OVS VLANs to their dedicated VPC subnet and VNI:
+The diagram below illustrates the per-lab Secondary Localnet architecture. Each lab project connects to a dedicated, single-namespace **Localnet CUDN** (VLANs 400–439), bridged via Open vSwitch (OVS) on Bare Metal worker nodes to its designated `/29` VPC subnet through attached IBM Cloud Virtual Network Interfaces (VNIs):
 
 ![Localnet UDN & VPC VNI Architecture](/img/lab/arch-localnet-udn.png)
+
+:::info Understanding VLANs in IBM Cloud VPC
+IBM Cloud VPC subnets are Layer 3 CIDR blocks and do not have native VLANs. On **VPC Bare Metal servers**, VLAN interfaces allow Open vSwitch (OVS) to tag traffic with a VLAN ID. The IBM Cloud VPC Bare Metal infrastructure uses the attached VNI to map that VLAN ID directly into the target VPC subnet.
+:::
 
 ---
 
 ## Key Concepts
 
 - **Virtual Network Interface (VNI)**: An IBM Cloud VPC resource providing dedicated IP, MAC address, and security group enforcement.
+- **VNI Attachment**: Binds a VNI to a Bare Metal PCI interface with an assigned VLAN ID, mapping tagged host traffic into a specific VPC subnet.
 - **Localnet CUDN**: An OVN-Kubernetes network attachment that bridges VM traffic directly to the physical/virtual network on Bare Metal worker nodes via OVS.
-- **MAC Address Pinning**: Matching the guest VM's MAC address to the VPC VNI MAC address to ensure deterministic IP allocation.
-- **Cloud-init**: Industry-standard multi-distribution package for automating early guest OS initialization (credentials, SSH keys, network configs).
+- **MAC Address Pinning**: Matching the guest VM's virtual NIC MAC to the VPC VNI MAC to ensure deterministic IP allocation from VPC DHCP.
+- **Cloud-init**: Industry-standard package for automating early guest OS initialization (credentials, SSH keys, network configs).
 
 ⏱️ **Estimated Completion Time:** 20 minutes
 
