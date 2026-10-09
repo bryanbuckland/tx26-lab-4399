@@ -14,6 +14,8 @@ In this hands-on lab, you will explore modern VM provisioning patterns, advanced
 
 The workshop runs on a dedicated multi-tenant IBM Cloud environment designed to simulate an enterprise-grade hybrid migration landing zone.
 
+At the infrastructure level, the cluster runs within an **IBM Cloud VPC** providing private network isolation and dedicated per-tenant subnets. Inside the cluster, **OpenShift Project (Namespace) boundaries** isolate VM workloads and software-defined networks between participants. Access is governed end-to-end through **IBM Cloud IAM and OpenShift RBAC**, restricting each user to their assigned project while keeping shared infrastructure protected.
+
 ![Lab Environment Architecture](/img/lab/arch-overview.png)
 
 ### OpenShift & OVN Networking Concepts
