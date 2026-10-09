@@ -79,7 +79,9 @@ const config = {
       // Replace with your project's social card
       image: 'img/docusaurus-social-card.jpg',
       colorMode: {
-        respectPrefersColorScheme: true,
+        defaultMode: 'light',
+        disableSwitch: true,
+        respectPrefersColorScheme: false,
       },
       navbar: {
         title: 'LAB-4399',
@@ -97,7 +99,22 @@ const config = {
             label: 'Lab Guide',
           },
           {
-            href: 'https://github.com/IBM/tx26-lab-4399',
+            type: 'dropdown',
+            label: 'Useful Links',
+            position: 'left',
+            items: [
+              {
+                label: 'IBM Cloud Virtualization Solutions',
+                href: 'https://cloud.ibm.com/docs/virtualization-solutions',
+              },
+              {
+                label: 'IBM OpenShift Virtualization',
+                href: 'https://www.ibm.com/products/openshift-virtualization',
+              },
+            ],
+          },
+          {
+            href: 'https://github.com/bryanbuckland/tx26-lab-4399',
             label: 'GitHub',
             position: 'right',
           },
