@@ -108,7 +108,7 @@ const config = {
                 href: 'https://cloud.ibm.com/docs/virtualization-solutions',
               },
               {
-                label: 'IBM OpenShift Virtualization',
+                label: 'Red Hat OpenShift Virtualization Service on IBM Cloud',
                 href: 'https://www.ibm.com/products/openshift-virtualization',
               },
             ],
@@ -127,7 +127,7 @@ const config = {
             title: 'Lab Sections',
             items: [
               { label: 'Introduction', to: '/docs/intro' },
-              { label: 'Layer 2 UDN', to: '/docs/demo-layer2-udn' },
+              { label: 'Secondary Layer 2 CUDN', to: '/docs/demo-layer2-udn' },
               { label: 'Localnet UDN', to: '/docs/demo-localnet-udn' },
               { label: 'Cold Migration', to: '/docs/cold-migration' },
               { label: 'Warm Migration', to: '/docs/warm-migration' },
@@ -137,7 +137,7 @@ const config = {
             title: 'IBM Resources',
             items: [
               { label: 'IBM TechXchange', href: 'https://www.ibm.com/community/ibm-techxchange-conference/' },
-              { label: 'OpenShift Virtualization', href: 'https://www.redhat.com/en/technologies/cloud-computing/openshift/virtualization' },
+              { label: 'Red Hat OpenShift Virtualization Service on IBM Cloud', href: 'https://www.ibm.com/products/openshift-virtualization' },
             ],
           },
         ],

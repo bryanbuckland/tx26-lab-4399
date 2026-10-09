@@ -56,7 +56,7 @@ const sidebars = {
         },
         {
           type: 'link',
-          label: 'IBM OpenShift Virtualization',
+          label: 'Red Hat OpenShift Virtualization Service on IBM Cloud',
           href: 'https://www.ibm.com/products/openshift-virtualization',
         },
       ],
