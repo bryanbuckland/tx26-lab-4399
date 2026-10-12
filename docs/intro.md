@@ -41,6 +41,7 @@ To ensure a smooth and safe learning experience, the environment enforces strict
   - `lab-4399-ph-lab-<N>`: Dedicated per-lab Localnet network.
   - `lab-4399-ph-lab-common`: Shared Localnet network (VLAN 500 / `10.26.6.0/24`) used for migrated workloads.
 - **Migration Providers**: Pre-configured MTV providers (`ocp-gym-vc` for vCenter source and `host` for the local OpenShift cluster).
+- This lab was built against OpenShift 4.22.13_1519. If you are using a different cluster version, then screenshots may not match but the general steps are the same.
 
 ### 🚫 What Is Managed Infrastructure (Do Not Touch)
 - **Pod Routers (`lab-4399-ph-pod-routers`)**: Pre-configured virtual routing pods and uplink subnets (`10.26.2.0/24` on VLAN 220) handling north-south traffic for Layer 2 CUDNs.
@@ -66,9 +67,9 @@ The hands-on curriculum is divided into two modules covering modern VM provision
 ## Prerequisites
 
 Before starting the labs, ensure you have:
-- An active IBM Cloud account with access to the **2326338 – ITZ-VMWARE** account.
-- Access to the **virtualization-4399** OpenShift web console.
 - Your assigned **Lab Number (1–40)** provided by your workshop instructor.
+- No browser windows open that are logged into a different IBM Cloud account, except that advised by your workshop instructor.
+- You can log into the IBM Cloud account corresponding to the number your workshop instructor provided. This will have access to the **2326338 – I TZ-VMWARE** account.
 
 ---
 
