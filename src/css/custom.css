@@ -306,8 +306,7 @@ body {
 .menu__list .menu__list-item > .menu__link:not(.menu__link--sublist) {
   font-size: 0.8rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  text-transform: none;
   color: #697077;
   cursor: default;
   padding-top: 10px;
