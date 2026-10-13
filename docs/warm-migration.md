@@ -47,11 +47,20 @@ Once migrated, production workloads can attach to the shared **Localnet CUDN** (
 
 ## Hands-On Steps
 
+### Step 0 - Delete your cold migrated VM
+This lab warm-migrates the same virtual machine that you migrated in the cold migration lab. You can't have the same VM running twice in your environment due to network conflicts, so we need to delete the cold-migrated instance first.
+
+**a.** In the OpenShigt web console left navigation menu, click **Virtual Machines**, then the **Virtual machines** tab in the main screen area. You will see a table view of the three virtual machines that you have created so far.
+
+**b.** click the 3 dots (⋮) at the right-hand end of the row for the virtual machine called `lab<your-lab-number>` (e.g. `lab-1').
+
+**c.** Click **Delete**
+
+**d.** Don't check any of the boxes in the  Delete Virtual Machine? pop-up - just click **Delete**.
+
 ### Step 1 – Access Migration Plans
 
 **a.** In the OpenShift web console left navigation menu, click **Migration for Virtualization** → **Migration plans**.
-
-![Migration for Virtualization → Migration plans](/img/lab/image114.png)
 
 > You will see your completed Cold Migration plan from Lab 3 in the list.
 
@@ -69,7 +78,7 @@ On the **General settings** page, fill in the following fields:
 | Plan project | Select YOUR project (`lab-4399-ph-lab-<your lab number>`) |
 | Source provider | `ocp-gym-vc` |
 | Target provider | `host` |
-| Target namespace | Select YOUR project (`lab-4399-ph-lab-<your lab number>`) |
+| Target project | Select YOUR project (`lab-4399-ph-lab-<your lab number>`) |
 
 ![General settings form](/img/lab/image106.png)
 
@@ -131,20 +140,30 @@ Click **Next**.
 
 ### Step 8 – Start the Warm Migration
 
-**a.** On the **Migration plans** page, click the 3 dots (⋮) on your warm migration plan.
+**a.** On the **Migration plans** list, click the name of your warm migration plan (note the migration plan may already be open, in which case, skip this step).
 
-**b.** Click **Start**.
-
-![Migration plan 3-dot menu → Start](/img/lab/image113.png)
+**b.** Click **Start**. The warm migration of your source VM will now begin.
 
 ---
 
 ### Step 9 – Monitor Precopy & Cutover Execution
 
-**a.** Click on the migration plan name to view execution progress:
+**a.** Click on the **Virtual machines** and click on the twisty to view execution progress:
 - **Precopying**: MTV copies live disk blocks while the source VM stays online in vCenter.
-- **Cutover**: Source VM is stopped and the final changed blocks are synchronized to ODF storage.
-- **Completed**: The target VM is launched on OpenShift Virtualization.
+
+![Create plan button](/img/lab/warm-migration-progress.png)
+
+Wait for a few minutes while the migration executes.
+
+Once the DiskTransfer stage has completed, you will notice that the Pipeline Status changes from **Running** to **Waiting**. This is because the migration has entered it's **Cutover** phase. Since this is a warm migration, you can schedule the cutover to a time suit your users.
+
+![Migration Cutover Paused](/img/lab/cutover-paused.png)
+
+**b.** Click the **Schedule cutover** link. To cutover immediately, click **set cutover** without changing any of the values in the pop-up.
+
+**c.** You will see that the **Pipeline Status** returns to running and the VM will continue to migrate.
+
+**d.** Wait a few more minutes until the migration completes and Pipeline Status shows **Succeeded** (Hint: you can click the **Details** tab to see a % complete status).
 
 ---
 
