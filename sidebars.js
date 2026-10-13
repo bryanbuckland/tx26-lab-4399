@@ -47,7 +47,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Useful Links',
-      collapsed: false,
+      collapsed: true,
       items: [
         {
           type: 'link',
