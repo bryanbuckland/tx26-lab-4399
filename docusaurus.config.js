@@ -114,6 +114,13 @@ const config = {
             ],
           },
           {
+            href: 'pathname:///IBM-TechXchange-Lab-4399.pdf',
+            label: 'Download PDF',
+            position: 'right',
+            className: 'navbar__link--pdf-download',
+            download: 'IBM-TechXchange-Lab-4399.pdf',
+          },
+          {
             href: 'https://github.com/bryanbuckland/tx26-lab-4399',
             label: 'GitHub',
             position: 'right',

@@ -214,8 +214,9 @@ body {
   color: #4589ff;
 }
 
-/* GitHub button — Paver's pill outline style */
-.navbar__items--right .navbar__link[href*='github'] {
+/* GitHub + Download PDF buttons — Paver's pill outline style */
+.navbar__items--right .navbar__link[href*='github'],
+.navbar__items--right .navbar__link--pdf-download {
   border: 1.5px solid #21272a;
   border-radius: 999px;
   padding: 5px 14px;
@@ -225,17 +226,28 @@ body {
   color: #21272a;
   transition: background 0.15s, color 0.15s;
 }
-.navbar__items--right .navbar__link[href*='github']:hover {
+.navbar__items--right .navbar__link[href*='github']:hover,
+.navbar__items--right .navbar__link--pdf-download:hover {
   background: #21272a;
   color: #ffffff;
 }
-[data-theme='dark'] .navbar__items--right .navbar__link[href*='github'] {
+[data-theme='dark'] .navbar__items--right .navbar__link[href*='github'],
+[data-theme='dark'] .navbar__items--right .navbar__link--pdf-download {
   border-color: #c6c6c6;
   color: #c6c6c6;
 }
-[data-theme='dark'] .navbar__items--right .navbar__link[href*='github']:hover {
+[data-theme='dark'] .navbar__items--right .navbar__link[href*='github']:hover,
+[data-theme='dark'] .navbar__items--right .navbar__link--pdf-download:hover {
   background: #c6c6c6;
   color: #161616;
+}
+
+/* Download PDF is a file download, not an external site — hide the arrow icon */
+.navbar__link--pdf-download svg {
+  display: none;
+}
+.navbar__items--right .navbar__link--pdf-download {
+  margin-right: 0.5rem;
 }
 
 /* ============================================================
