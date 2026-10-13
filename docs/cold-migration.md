@@ -191,10 +191,12 @@ Click **Next**.
 
 ### Step 11 – Monitor Migration Progress
 
-**a.** Click on the migration plan name to view real-time pipeline execution:
+**a.** Click on the **Virtual machines** and click on the twisty to view execution progress:
 - Volume creation on ODF Ceph storage.
 - Disk transfer and `virt-v2v` conversion.
 - Guest VM launch in OpenShift.
+
+![Create plan button](/img/lab/cold-migration-progress.png)
 
 **b.** Wait for the status to reach **Completed**. This may take 5-10 minutes.
 
