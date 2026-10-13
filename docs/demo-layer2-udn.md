@@ -45,9 +45,9 @@ The diagram below illustrates the shared Secondary Layer 2 CUDN topology, showin
 
 ## Hands-On Steps
 
-### Step 1 – Access the OpenShift Web Console
+### Step 1 – Log into IBM Cloud and Access the OpenShift Web Console
 
-**a.** Open [cloud.ibm.com](https://cloud.ibm.com) and confirm the account selector (upper right) is set to **2326338 – ITZ-VMWARE**.
+**a.** Using the URL and credentials corresponding to the number provided to you by your workshop instructor, log into IBM Cloud and confirm the account selector (upper right) is set to **2326338 – ITZ-VMWARE**.
 
 ![Account selector showing 2326338 – ITZ-VMWARE](/img/lab/image10.png)
 
@@ -71,45 +71,63 @@ The diagram below illustrates the shared Secondary Layer 2 CUDN topology, showin
 
 ### Step 2 – Navigate to Virtualization
 
-**a.** In the dropdown, click **Virtualization** → **VirtualMachines**. Set the project selector at the top to your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
+**a.** In the dropdown, click **Virtualization**.
 
-![Virtualization → VirtualMachines menu](/img/lab/image20.png)
+**b.** Click VirtualMachines on the left menu bar and then click the Virtual Machines tab in the main window.
+
+**c.** If there is no blue 'create' button visible at the top right of the screen, click 'Settings' on the left menu bar and select your the project name relating to the number / login details provided by your workshop instructor in the Project dropdown. The return to the Virtual Machines tab, using the steps in **a.**
+
+![Virtualization → VirtualMachines menu](/img/lab/nav-to-virtualization.png)
 
 ---
 
 ### Step 3 – Create a Virtual Machine from Instance Type
 
-**a.** Click **Create** → **From Instance Type**.
+**a.** Click the blue **Create** button.
 
-![Create → From Instance Type](/img/lab/image22.png)
+**b.** Ensure Custom configuration (default) is selected.
+
+![Create → From Custom Configuration](/img/lab/create-custom-config.png)
+
+**c.** Change the Name to `<initials>-layer2-vm` (e.g. `js-layer2-vm`). You can add a description too.
+
+**d.**  Scroll donwn and under Location, click the pencil icon. In the Project dropdown, select your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
+
+**e.** click **Next**
 
 ---
 
-### Step 4 – Configure and Create the VM
+### Step 4 – Choose an operating system, Boot Source and Compute Resources
 
-**a.** Select **centos-stream9**.
+**a.** Click Other Linux and from the dropdown, Select **centos-stream10**.
 
-![centos-stream9 selected](/img/lab/image24.png)
+**b.** Click **Next**
 
-**b.** Scroll down and select **General Purpose**. Click the U series dropdown and select **small: 1 CPUs, 2 GiB Memory**.
+![centos-stream9 selected](/img/lab/choose-vm-os.png)
 
-![General Purpose U series small selected](/img/lab/image26.png)
+**c.** On the Boot Source screen, click to highlight centos-stream10
 
-**c.** Scroll down and change the VM name to `<initials>-layer2-vm` (e.g. `js-layer2-vm`).
+**d.** click Next
 
-![VM name set to layer2-vm](/img/lab/image27.png)
+![centos-stream9 selected](/img/lab/boot-source.png)
 
-**d.** ⚠️ **DO NOT CLICK CREATE.** Click **Customize VirtualMachine**.
+**e.** On the Compute resources screen, select **General Purpose**. Click the dropdown and select **small: 1 CPUs, 2 GiB Memory**.
 
-**e.** In the Customize screen, click the **Configuration** tab, then navigate to the **Network** tab on the left. Click the kebab menu (⋮) on the default interface row and choose **Edit**.
+![General Purpose U series small selected](/img/lab/compute-resources.png)
 
-![Configuration → Network tab with kebab Edit](/img/lab/image34.png)
+**f.** Click **Next**
 
-**f.** In the **Network** dropdown, select the **Layer-2** network binding type attached to the shared CUDN (`lab-4399-ph-layer2-routed-1`). Click **Save**.
+**g.** In the Customize screen, click the **Network** tab. Click the kebab menu (⋮) on the default interface row in the displayed table and choose **Edit**.
 
-![Layer-2 network binding type selected](/img/lab/image35.png)
+![Configuration → Network tab with kebab Edit](/img/lab/customize-network.png)
 
-**g.** Click **Create VirtualMachine**.
+**h.** In the **Network** dropdown, select the **Layer-2** network binding type attached to the shared CUDN (`lab-4399-ph-layer2-routed-1`). Click **Save**.
+
+![Layer-2 network binding type selected](/img/lab/edit-net-interface.png)
+
+**i.** Click **Next**
+
+**j.** Review your settings, then Click **Create VirtualMachine**.
 
 ---
 
@@ -123,7 +141,7 @@ Provisioning → Starting → Running
 
 ![Status column showing Provisioning to Running](/img/lab/image38.png)
 
-**b.** View the Network details to verify the assigned IP address (in the `10.26.3.0/24` range assigned by the pod-router).
+**b.** Scroll down the screen slightly to view the Network details on the right of the screen and verify the assigned IP address (in the `10.26.3.0/24` range assigned by the pod-router).
 
 ---
 
@@ -133,17 +151,19 @@ Provisioning → Starting → Running
 
 ![Open web console button](/img/lab/image41.png)
 
-**b.** Log in with the guest login credentials (`centos` / `ChangeMe123!`). Then check the IP configuration:
+**b.** Log in with the guest login credentials that are provided at the top of the screen, above the console window.
+
+> **Hint:** Use the Copy and Paste to Console buttons.
+
+**c.** Then check the IP configuration:
 
 ```bash
 ip addr show
 ```
 
-> **Hint:** Use the Copy and Paste to Console buttons.
-
 ![Console with ip addr show output](/img/lab/image44.png)
 
-**c.** Verify outbound reachability through the pod router:
+**d.** Verify outbound reachability through the pod router:
 
 ```bash
 curl http://lab.techzone.ibm.local/

@@ -47,7 +47,7 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 ### Step 1 – Understand and Inspect the Virtual Network Interface (VNI)
 
-> 💡 **Note on Permissions:** In this training environment, your VNI has already been created and attached to the cluster worker nodes by the administrators. We will explore the VNI configuration form, but **DO NOT CLICK CREATE**.
+> 💡 **Note on Permissions:** In this training environment, your VNI has already been created and attached to the cluster worker nodes by the administrators. We will explore the VNI configuration form, but **DO NOT CREATE A NEW VNI**.
 
 **a.** In the IBM Cloud console, click the hamburger menu (upper left) → **Infrastructure** → **Network** → **Virtual network interfaces**.
 
@@ -57,21 +57,23 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 ![Create VNI button](/img/lab/image50.png)
 
-**c.** Observe the standard VNI configuration parameters:
+**c.** Take a look at the standard fields requred to create a new VNI. Here's some example values - don't fill these in.
 
-| Field | Value |
+| Field | Example Value |
 | :--- | :--- |
 | Region | Dallas (`us-south`) |
 | Name | `lab-4399-example` |
 | Resource group | `techexchange-2026-lab-4399` |
 
-![VNI creation form filled out](/img/lab/image53.png)
 
-**d.** Under **Network configuration**, notice the VPC is `vpc-lab-4399` and each lab has a corresponding dedicated subnet (e.g. Lab 1 uses `lab-4399-ph-lab-1-subnet`).
+
+**d.** Scroll down.  Under **Network configuration**, notice the VPC is `vpc-lab-4399` and each lab has a corresponding dedicated subnet (e.g. Lab 1 uses `lab-4399-ph-lab-1-subnet`). These represent the VPC(s) and the subnets that the new VNI could be attached to.
 
 ![Network configuration with subnet selection](/img/lab/image54.png)
 
-**e.** ⚠️ **DO NOT CLICK CREATE.** Click **Cancel** or navigate back to the **Virtual network interfaces** list.
+**e.** ⚠️ **DO NOT CLICK CREATE.** Scroll back to the top of the screen and click back to the **Virtual network interfaces** list.
+
+![Create VNI button](/img/lab/back-to-vni-list.png)
 
 ---
 
@@ -79,11 +81,11 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 **a.** Locate the VNI corresponding to **YOUR** lab number in the list and click on it.
 
-> **Pattern:** `lab-4399-ph-lab-<your lab number>-vm-1` (e.g. `lab-4399-ph-lab-1-vm-1`)
+> **Pattern:** `lab-4399-ph-lab-common-lab-<your lab number>` (e.g. `lab-4399-ph-lab-common-lab-1`)
 
 ![VNI list with lab number highlighted](/img/lab/image57.png)
 
-**b.** Note the **MAC address** and **Reserved IP** displayed on the VNI detail page — you will need this MAC address in Step 8.
+**b.** Make a note of the **MAC address** and **Primary IP** displayed on the VNI detail page. You will need this MAC address in Step 4g and use the Primary IP to verify your configuration at the end of the lab.
 
 **c.** *(Optional)* Inspect the VNI Attachment:
 1. Click the hamburger menu → **Infrastructure** → **OpenShift virtualization** → **virtualization-4399**.
@@ -97,85 +99,89 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 **a.** Switch to your OpenShift Web Console browser tab.
 
-**b.** In the left navigation menu, click the dropdown → **Virtualization** → **VirtualMachines**. Set the project selector to your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
+**b.** In the dropdown, click **Virtualization**.
 
-![Virtualization → VirtualMachines with All Projects](/img/lab/image61.png)
+**c.** Click VirtualMachines on the left menu bar and then click the Virtual Machines tab in the main window. Check that you see a blue **create** button at the top right of the screen.
+
+**d.** If there is no blue 'create' button visible at the top right of the screen, click 'Settings' on the left menu bar and select your the project name relating to the number / login details provided by your workshop instructor in the Project dropdown. The return to the Virtual Machines tab, using the steps in **a.**
+
+![Virtualization → VirtualMachines menu](/img/lab/nav-to-virtualization.png)
 
 ---
 
 ### Step 4 – Open the VM Creation Wizard
 
-**a.** Click **Create** → **From InstanceType**.
+**a.** Click the blue **Create** button.
 
-![Create VirtualMachines → From InstanceType](/img/lab/image63.png)
+**b.** Ensure Custom configuration (default) is selected.
 
----
+![Create → From Custom Configuration](/img/lab/create-custom-config.png)
 
-### Step 5 – Select the Boot Volume & InstanceType
+**c.** Set the VM Name to `<initials>-localnet-vm` (e.g. `js-localnet-vm`). You can add a description too.
 
-**a.** Under the **InstanceTypes** tab, select **centos-stream9** as the operating system.
 
-![centos-stream9 selected as boot volume](/img/lab/image65.png)
+**d.**  Scroll donwn and check the details under Location. This should already be set to your assigned project. If not, click the pencil icon. In the Project dropdown, select your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
 
-**b.** Select the **General Purpose** card (U series), and choose **small: 1 CPUs, 2 GiB Memory**.
-
-![General Purpose U series small selected](/img/lab/image67.png)
+**e.** click **Next**
 
 ---
 
-### Step 6 – Name and Customize the VM
+### Step 4 – Choose an operating system, Boot Source and Compute Resources
 
-**a.** Set the VM Name to `<initials>-localnet-vm` (e.g. `js-localnet-vm`).
+**a.** Click Other Linux and from the dropdown, Select **centos-stream10**.
 
-> ⚠️ **DO NOT CLICK Create VirtualMachine yet.** Click **Customize VirtualMachine** — the default wizard uses the cluster pod network without a fixed MAC. You must configure the Localnet network and pin the MAC address before creation.
+**b.** Click **Next**
 
-![VM Name and Customize button](/img/lab/image27.png)
+![centos-stream9 selected](/img/lab/choose-vm-os.png)
 
----
+**c.** On the Boot Source screen, click to highlight centos-stream10
 
-### Step 7 – Configure the Localnet Network Interface
+**d.** click Next
 
-**a.** In the Customize screen, click the **Configuration** tab, then click the **Network** tab on the left.
+![centos-stream9 selected](/img/lab/boot-source.png)
 
-**b.** Click the kebab menu (⋮) on the default interface row and select **Edit**.
+**e.** On the Compute resources screen, select **General Purpose**. Click the dropdown and select **small: 1 CPUs, 2 GiB Memory**.
 
-![Configuration → Network tab with kebab Edit](/img/lab/image74.png)
+![General Purpose U series small selected](/img/lab/compute-resources.png)
 
----
+**f.** Click **Next**
 
-### Step 8 – Set Network Attachment & Pin the MAC Address
+**g.** In the Customize screen, click the **Network** tab. Click the kebab menu (⋮) on the default interface row in the displayed table and choose **Edit**.
 
-**a.** In the Edit network interface dialog:
-- **Network:** Select the Localnet CUDN matching your lab: `lab-4399-ph-lab-<your lab number>` (e.g. `lab-4399-ph-lab-1`).
+![Configuration → Network tab with kebab Edit](/img/lab/customize-network.png)
+
+**h.** In the Edit network interface dialog:
+- **Network:** Select the Localnet CUDN matching your lab: `lab-4399-ph-lab-<your lab number>/lab-4399-ph-lab-common`.
 - **Expand Advanced Settings** → enter the **MAC address** copied from your VPC VNI in Step 2.
 
-![MAC address set in Advanced Settings](/img/lab/image77.png)
+![MAC address set in Advanced Settings](/img/lab/advanced-network1.png)
 
-**b.** Click **Save**.
+**i.** Click **Save**.
+
+This has the effect of setting the network attachment and pinning the MAC address. **Do not click Next.**
 
 ---
 
-### Step 9 – Set the Guest Password with Cloud-init
+### Step 5 – Set the Guest Password with Cloud-init
 
-**a.** In the left-hand navigation list of the Customize wizard, click **Initial run**.
+**a.** In the the Customization pane, click the **Initial run** tab.
+
+![Initial run tab](/img/lab/click-init-run.png)
+
 
 **b.** In the **Cloud-init** section, click **Edit**.
 
-![Initial run – Cloud-init Edit](/img/lab/image80.png)
-
-**c.** Set the root/centos password to `ChangeMe123!` and click **Apply**.
-
-![Cloud-init password set to ChangeMe123!](/img/lab/image82.png)
+**c.** Set the root/centos password to `ChangeMe123!` and click **Apply** and then **Next**.
 
 ---
 
-### Step 10 – Create and Start the VM
+### Step 6 – Create and Start the VM
 
-**a.** Scroll down and click the blue **Create VirtualMachine** button at the bottom of the screen.
+**a.** Check the new VM's configuration details and click the blue **Create VirtualMachine** button at the bottom of the screen. This will create the VM and start it.
 
 ---
 
-### Step 11 – Watch the VM Boot
+### Step 7 – Watch the VM Boot
 
 **a.** Return to the **VirtualMachines** list. Observe the status progression:
 
@@ -185,21 +191,21 @@ Provisioning → Starting → Running
 
 ---
 
-### Step 12 – Inspect the VM Network Overview
+### Step 8 – Inspect the VM Network Overview
 
-**a.** Click on your VM and scroll to the **Network tile** — verify that the IP matches the reserved IP from your VPC VNI.
+**a.** Scroll down slightly to view the **Network tile** on the righ hand side — verify that the IP matches the reserved IP from your VPC VNI. This screenshot shows an example.
 
-![Network tile showing static IP](/img/lab/image84.png)
+![Network configuration](/img/lab/network-tile.png)
 
 **b.** Click the **Network tile** header to open **Configuration** → **Network**:
 - Confirm the network attachment is bound to your dedicated Localnet CUDN.
 - Confirm the **MAC address** matches your VPC VNI reservation.
 
-![Network configuration showing MAC address match](/img/lab/image86.png)
+![Network configuration showing MAC address match](/img/lab/confirm-mac.png)
 
 ---
 
-### Step 13 – Validate Guest OS Network & Connectivity
+### Step 9 – Validate Guest OS Network & Connectivity
 
 **a.** Click the **Console** tab. Log in as user `centos` with password `ChangeMe123!`.
 
