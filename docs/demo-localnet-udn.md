@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Provision a VM – Localnet UDN
 
+import LabVideo from '@site/src/components/LabVideo';
+
+<LabVideo name="lab-4399-localnet-vm" />
+
 ## Overview & Purpose
 When migrating enterprise VMware workloads to the cloud, applications frequently require direct Layer 2 adjacency to corporate VPC subnets, static IP/MAC preservation, and native integration with cloud security groups and routing tables.
 
@@ -53,6 +57,8 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 ![Infrastructure → Network → Virtual network interfaces](/img/lab/image49.png)
 
+The list opens on the wrong region and looks empty. Set **Region** to **Dallas (us-south)** before you continue.
+
 **b.** Click **Create** to view the VNI creation wizard.
 
 ![Create VNI button](/img/lab/image50.png)
@@ -64,6 +70,8 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 | Region | Dallas (`us-south`) |
 | Name | `lab-4399-example` |
 | Resource group | `techexchange-2026-lab-4399` |
+
+As a lab user you will see an "Authorization error" on this form, and the **Resource group** will be empty. This is expected. You cannot create a VNI here.
 
 
 
@@ -99,7 +107,7 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 **a.** Switch to your OpenShift Web Console browser tab.
 
-**b.** In the dropdown, click **Virtualization**.
+**b.** In the left menu, click **Virtualization**.
 
 **c.** Click VirtualMachines on the left menu bar and then click the Virtual Machines tab in the main window. Check that you see a blue **create** button at the top right of the screen.
 
@@ -171,7 +179,7 @@ This has the effect of setting the network attachment and pinning the MAC addres
 
 **b.** In the **Cloud-init** section, click **Edit**.
 
-**c.** Set the root/centos password to `ChangeMe123!` and click **Apply** and then **Next**.
+**c.** Set the password for user `centos` to `ChangeMe123!` and click **Apply** and then **Next**.
 
 ---
 

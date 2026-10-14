@@ -4,6 +4,10 @@ sidebar_position: 5
 
 # Warm Migration – Migrate a VMware VM to ROVS
 
+import LabVideo from '@site/src/components/LabVideo';
+
+<LabVideo name="lab-4399-warm-migration" />
+
 ## Overview & Purpose
 For production enterprise workloads bound by strict Service Level Agreements (SLAs), extended maintenance windows are unacceptable. **Warm Migration** minimizes workload disruption by copying the bulk of the virtual disk data in the background while the source VMware VM remains online and serving live traffic.
 

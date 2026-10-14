@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Cold Migration – Migrate a VMware VM to ROVS
 
+import LabVideo from '@site/src/components/LabVideo';
+
+<LabVideo name="lab-4399-cold-migration" />
+
 ## Overview & Purpose
 Modernizing legacy virtualized infrastructure requires a predictable, automated, and non-disruptive pathway from VMware vSphere to Red Hat OpenShift Virtualization on IBM Cloud (ROVS). The **Migration Toolkit for Virtualization (MTV)** orchestrates the discovery, conversion, resource mapping, and execution needed to migrate virtual machines at scale.
 
@@ -18,7 +22,7 @@ In this lab, you will perform an end-to-end **Cold Migration**. The source VMwar
 ## Learning Objectives
 By completing this lab, you will be able to:
 - **Configure Network Maps** to bind VMware NSX overlay segments to OpenShift Localnet CUDNs.
-- **Configure Storage Maps** to redirect VMware datastores to OpenShift Data Foundation (`ocs-storagecluster-ceph-rpd`) storage classes.
+- **Configure Storage Maps** to redirect VMware datastores to OpenShift Data Foundation (`ocs-storagecluster-ceph-rbd`) storage classes.
 - **Build and Execute** a declarative Cold Migration Plan within MTV.
 - **Monitor the Migration Pipeline** from disk transfer through post-migration VM boot.
 
@@ -69,7 +73,7 @@ Once migrated, the workload attaches to the shared **Localnet CUDN** (`lab-commo
 | Project | Select YOUR project (`lab-4399-ph-lab-<your lab number>`) |
 | Source provider | `ocp-gym-vc` |
 | Target provider | `host` |
-| Source network | `6a7c55c9e78638eb8066f39-segment` |
+| Source network | `6a7c556c9e78638eb8066f39-segment` |
 | Target network | `lab-4399-ph-lab-<your lab number>/lab-4399-ph-lab-<your lab number>` |
 
 **d.** Click **Create**.
@@ -93,7 +97,7 @@ Once migrated, the workload attaches to the shared **Localnet CUDN** (`lab-commo
 | Source provider | `ocp-gym-vc` |
 | Target provider | `host` |
 | Source storage | `6a7c55c9e78638eb8066f39-storage` |
-| Target storage | `ocs-storagecluster-ceph-rpd` |
+| Target storage | `ocs-storagecluster-ceph-rbd` |
 
 **d.** Click **Create**.
 

@@ -1,0 +1,306 @@
+WEBVTT
+
+1
+00:00:00.500 --> 00:00:03.843
+This video shows how to move a VMware virtual machine
+
+2
+00:00:03.843 --> 00:00:07.347
+to OpenShift Virtualization with a cold migration.
+
+3
+00:00:07.347 --> 00:00:11.369
+A cold migration copies the virtual machine while it is shut down.
+
+4
+00:00:11.369 --> 00:00:15.373
+We use Migration for Virtualization in the OpenShift web console,
+
+5
+00:00:15.373 --> 00:00:17.591
+and the lab's vCenter as the source.
+
+6
+00:00:18.791 --> 00:00:22.088
+Before we start, here is what the migration connects.
+
+7
+00:00:22.088 --> 00:00:27.210
+On the left is VMware Cloud Foundation, on IBM Cloud Classic Infrastructure.
+
+8
+00:00:27.210 --> 00:00:33.607
+Our source virtual machine sits in the lab-4399 folder, and vCenter manages it.
+
+9
+00:00:33.607 --> 00:00:38.929
+On the right is Red Hat OpenShift Virtualization, on an IBM Cloud VPC.
+
+10
+00:00:38.929 --> 00:00:41.776
+A transit gateway joins the two sides.
+
+11
+00:00:41.776 --> 00:00:45.047
+Migration Toolkit for Virtualization, on OpenShift,
+
+12
+00:00:45.047 --> 00:00:48.924
+connects to vCenter through its provider configuration.
+
+13
+00:00:48.924 --> 00:00:53.971
+A network mapping sends the source network to a Localnet network on OpenShift.
+
+14
+00:00:53.971 --> 00:00:58.843
+A storage mapping sends the source datastore to OpenShift Data Foundation.
+
+15
+00:00:58.843 --> 00:01:03.590
+Then the migration plan moves the machine, and virt-v2v converts its disk.
+
+16
+00:01:04.790 --> 00:01:05.710
+Once migrated,
+
+17
+00:01:05.710 --> 00:01:10.987
+the machine joins a shared Localnet network called lab-common, on VLAN 500.
+
+18
+00:01:10.987 --> 00:01:18.582
+This network reaches a dedicated subnet of the VPC for migrated machines,
+
+19
+00:01:18.582 --> 00:01:20.284
+10.26.6.0/24.
+
+20
+00:01:20.284 --> 00:01:24.906
+Every lab has its own project, and all of them use this one shared network.
+
+21
+00:01:24.906 --> 00:01:29.628
+Each machine needs a virtual network interface, or VNI, in that subnet.
+
+22
+00:01:29.628 --> 00:01:31.775
+The lab team already made them for you.
+
+23
+00:01:32.975 --> 00:01:36.772
+We start in the OpenShift web console, in our lab project.
+
+24
+00:01:36.772 --> 00:01:40.869
+We open Migration for Virtualization, and click Network maps.
+
+25
+00:01:40.869 --> 00:01:45.316
+A network map says which target network each source network joins.
+
+26
+00:01:45.316 --> 00:01:48.738
+We click Create network map, then Create with form.
+
+27
+00:01:48.738 --> 00:01:51.610
+We name it lab39-networkmap.
+
+28
+00:01:51.610 --> 00:01:57.008
+We choose the source provider ocp-gym-vc and the target provider host.
+
+29
+00:01:57.008 --> 00:01:59.778
+For the networks, we choose the lab's source segment,
+
+30
+00:01:59.778 --> 00:02:01.905
+and the shared lab-common network.
+
+31
+00:02:01.905 --> 00:02:03.027
+We click Create.
+
+32
+00:02:09.916 --> 00:02:12.038
+Next we make a storage map.
+
+33
+00:02:12.038 --> 00:02:16.285
+It says which target storage class each source datastore uses.
+
+34
+00:02:16.285 --> 00:02:20.932
+We open Storage maps, click Create storage map, then Create with form.
+
+35
+00:02:20.932 --> 00:02:23.679
+We name it lab39-storagemap.
+
+36
+00:02:23.679 --> 00:02:26.151
+The providers are the same as before.
+
+37
+00:02:26.151 --> 00:02:28.787
+We choose the lab's source datastore,
+
+38
+00:02:28.787 --> 00:02:33.198
+and the target storage class ocs-storagecluster-ceph-rbd.
+
+39
+00:02:33.198 --> 00:02:37.446
+This is the OpenShift Data Foundation class for virtual machine disks.
+
+40
+00:02:37.446 --> 00:02:38.568
+We click Create.
+
+41
+00:02:43.398 --> 00:02:45.045
+Now we make the plan.
+
+42
+00:02:45.045 --> 00:02:48.342
+We open Migration plans and click Create plan.
+
+43
+00:02:48.342 --> 00:02:50.789
+The wizard opens on the General step.
+
+44
+00:02:50.789 --> 00:02:54.111
+We name the plan cold-migration-lab39.
+
+45
+00:02:54.111 --> 00:02:56.833
+The plan project is our lab project.
+
+46
+00:02:56.833 --> 00:03:02.231
+We choose the source provider ocp-gym-vc and the target provider host.
+
+47
+00:03:02.231 --> 00:03:06.053
+We choose our lab project as the target project, and click Next.
+
+48
+00:03:10.779 --> 00:03:14.001
+On the Virtual machines step, we choose what to move.
+
+49
+00:03:14.001 --> 00:03:16.823
+The tree lists the lab's source machines.
+
+50
+00:03:16.823 --> 00:03:21.095
+We type lab-39 in the filter, so only our own machine is left.
+
+51
+00:03:21.095 --> 00:03:25.817
+We expand the lab-4399 folder, and tick lab-39.
+
+52
+00:03:25.817 --> 00:03:27.714
+Its power state is On.
+
+53
+00:03:27.714 --> 00:03:28.662
+We click Next.
+
+54
+00:03:32.433 --> 00:03:35.555
+The Network map step offers an existing map.
+
+55
+00:03:35.555 --> 00:03:39.302
+We keep that choice, and select lab39-networkmap.
+
+56
+00:03:39.302 --> 00:03:40.599
+We click Next.
+
+57
+00:03:40.599 --> 00:03:43.421
+The Storage map step works the same way.
+
+58
+00:03:43.421 --> 00:03:46.668
+We select lab39-storagemap, and click Next.
+
+59
+00:03:51.608 --> 00:03:55.355
+On the Migration type step, we select Cold migration.
+
+60
+00:03:55.355 --> 00:04:00.002
+A cold migration shuts the virtual machine down before it copies the disks.
+
+61
+00:04:00.002 --> 00:04:01.924
+We click Skip to review.
+
+62
+00:04:01.924 --> 00:04:04.521
+We check the summary, and click Create plan.
+
+63
+00:04:11.032 --> 00:04:12.854
+The plan page opens.
+
+64
+00:04:12.854 --> 00:04:16.476
+The plan checks itself first, and nothing has moved yet.
+
+65
+00:04:16.476 --> 00:04:18.698
+We click Start to begin the migration.
+
+66
+00:04:22.559 --> 00:04:25.081
+We open the Virtual machines tab.
+
+67
+00:04:25.081 --> 00:04:27.403
+Here we can follow the migration.
+
+68
+00:04:27.403 --> 00:04:31.600
+The status is Running, and the disk transfer counts the megabytes copied.
+
+69
+00:04:31.600 --> 00:04:34.722
+This takes about five minutes, so we skip ahead.
+
+70
+00:04:34.722 --> 00:04:36.669
+The status is now Succeeded.
+
+71
+00:04:38.088 --> 00:04:41.635
+Last, we open Virtualization and VirtualMachines.
+
+72
+00:04:41.635 --> 00:04:46.382
+Our machine, lab-39, now runs on OpenShift in our lab project.
+
+73
+00:04:46.382 --> 00:04:49.204
+It started as a VMware virtual machine.
+
+74
+00:04:50.405 --> 00:04:55.002
+You moved a VMware virtual machine to OpenShift with a cold migration.
+
+75
+00:04:55.002 --> 00:04:57.499
+Next, try a warm migration.
+
+76
+00:04:57.499 --> 00:05:00.771
+It keeps the source machine running while it copies the disks.
+

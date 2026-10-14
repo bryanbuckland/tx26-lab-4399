@@ -1,0 +1,318 @@
+WEBVTT
+
+1
+00:00:00.500 --> 00:00:05.340
+This video shows how to create a virtual machine on a shared Layer 2 network,
+
+2
+00:00:05.340 --> 00:00:09.022
+in the lab for OpenShift Virtualization on IBM Cloud.
+
+3
+00:00:09.022 --> 00:00:13.669
+We work in the IBM Cloud console and in the OpenShift web console.
+
+4
+00:00:13.669 --> 00:00:17.391
+At the end, we check that the virtual machine can reach the lab web page.
+
+5
+00:00:18.591 --> 00:00:22.388
+Before we start, here is the network this virtual machine will use.
+
+6
+00:00:22.388 --> 00:00:24.760
+It is a shared Layer 2 network.
+
+7
+00:00:24.760 --> 00:00:28.982
+It is made once for the cluster, and every lab project can use it.
+
+8
+00:00:28.982 --> 00:00:32.909
+Virtual machines from different projects sit on the same network,
+
+9
+00:00:32.909 --> 00:00:35.554
+and each one gets its address by DHCP.
+
+10
+00:00:35.554 --> 00:00:38.451
+A router pod is the gateway for the network.
+
+11
+00:00:38.451 --> 00:00:41.725
+It reaches the IBM Cloud VPC over VLAN 220,
+
+12
+00:00:41.725 --> 00:00:46.599
+and a VPC route sends traffic for this range back to the router.
+
+13
+00:00:47.799 --> 00:00:50.521
+We start in the IBM Cloud console.
+
+14
+00:00:50.521 --> 00:00:56.568
+In the upper right, the account selector shows 2326338, ITZ-VMWARE.
+
+15
+00:00:56.568 --> 00:00:58.690
+This is the account that holds the lab.
+
+16
+00:00:58.690 --> 00:01:00.412
+Check it before you go on.
+
+17
+00:01:01.612 --> 00:01:05.184
+Open the menu at the upper left, and choose Infrastructure.
+
+18
+00:01:05.184 --> 00:01:09.881
+On the Infrastructure page, click OpenShift virtualization in the left menu.
+
+19
+00:01:09.881 --> 00:01:14.503
+The page lists one cluster, virtualization-4399.
+
+20
+00:01:14.503 --> 00:01:15.725
+We click its name.
+
+21
+00:01:18.312 --> 00:01:23.184
+The cluster page has a blue button at the upper right, OpenShift web console.
+
+22
+00:01:23.184 --> 00:01:24.431
+We click it.
+
+23
+00:01:24.431 --> 00:01:26.878
+The console opens, already signed in.
+
+24
+00:01:29.111 --> 00:01:33.483
+In the menu on the left, we open Virtualization, and click VirtualMachines.
+
+25
+00:01:33.483 --> 00:01:35.980
+The page lists projects on the left.
+
+26
+00:01:35.980 --> 00:01:38.227
+A new project has no virtual machines,
+
+27
+00:01:38.227 --> 00:01:42.302
+so the filter Show only projects with VirtualMachines hides it.
+
+28
+00:01:42.302 --> 00:01:46.088
+We turn the filter off, search for lab-39,
+
+29
+00:01:46.088 --> 00:01:49.874
+and click our project, lab-4399-ph-lab-39.
+
+30
+00:01:51.074 --> 00:01:52.796
+Now we click Create.
+
+31
+00:01:52.796 --> 00:01:55.293
+A wizard opens, with six steps.
+
+32
+00:01:55.293 --> 00:01:57.690
+The first is Deployment details.
+
+33
+00:01:57.690 --> 00:02:02.137
+We type a name for the virtual machine: your initials, then layer2-vm.
+
+34
+00:02:02.137 --> 00:02:04.834
+Ours is nt-layer2-vm.
+
+35
+00:02:04.834 --> 00:02:05.781
+We click Next.
+
+36
+00:02:07.299 --> 00:02:09.496
+Step 2 is Guest OS.
+
+37
+00:02:09.496 --> 00:02:13.218
+We choose Other Linux, and choose centos.stream9 in the list.
+
+38
+00:02:13.218 --> 00:02:14.515
+We click Next.
+
+39
+00:02:14.515 --> 00:02:16.837
+Step 3 is Boot source.
+
+40
+00:02:16.837 --> 00:02:19.984
+We select the volume centos-stream9, and click Next.
+
+41
+00:02:22.074 --> 00:02:24.671
+Step 4 is Compute resources.
+
+42
+00:02:24.671 --> 00:02:26.618
+We select General Purpose.
+
+43
+00:02:26.618 --> 00:02:30.273
+The size starts as medium, so we open the size list,
+
+44
+00:02:30.273 --> 00:02:33.715
+and choose small: 1 CPU and 2 GiB of memory.
+
+45
+00:02:33.715 --> 00:02:34.662
+We click Next.
+
+46
+00:02:36.274 --> 00:02:38.646
+Step 5 is Customization.
+
+47
+00:02:38.646 --> 00:02:42.243
+Here we attach the virtual machine to the Layer 2 network.
+
+48
+00:02:42.243 --> 00:02:44.390
+We open the Network tab.
+
+49
+00:02:44.390 --> 00:02:48.387
+On the default interface, we click the kebab menu, and choose Edit.
+
+50
+00:02:48.387 --> 00:02:50.984
+The Network list has three networks.
+
+51
+00:02:50.984 --> 00:02:53.731
+We select the one with layer2 in the name.
+
+52
+00:02:53.731 --> 00:02:54.679
+We click Save.
+
+53
+00:02:55.879 --> 00:02:57.851
+We set a password here.
+
+54
+00:02:57.851 --> 00:03:00.098
+We open the Initial run tab.
+
+55
+00:03:00.098 --> 00:03:02.745
+In the Cloud-init section, we click Edit.
+
+56
+00:03:02.745 --> 00:03:04.642
+The user is centos.
+
+57
+00:03:04.642 --> 00:03:08.814
+We type a password in the password field, and it shows only as dots.
+
+58
+00:03:08.814 --> 00:03:10.086
+Then we click Apply.
+
+59
+00:03:11.286 --> 00:03:14.083
+We click Next to reach Review and create.
+
+60
+00:03:14.083 --> 00:03:16.880
+The page shows the name and the project.
+
+61
+00:03:16.880 --> 00:03:20.677
+The box to start the virtual machine after creation is ticked.
+
+62
+00:03:20.677 --> 00:03:22.674
+We click Create VirtualMachine.
+
+63
+00:03:23.886 --> 00:03:28.058
+OpenShift copies the boot volume, and starts the virtual machine.
+
+64
+00:03:28.058 --> 00:03:32.080
+The status changes from Provisioning, to Starting, and then to Running.
+
+65
+00:03:32.080 --> 00:03:35.652
+Soon after, the Network tile shows an IP address.
+
+66
+00:03:35.652 --> 00:03:38.649
+The router in the cluster gave it, by DHCP.
+
+67
+00:03:40.527 --> 00:03:42.974
+Now we open the Console tab.
+
+68
+00:03:42.974 --> 00:03:46.471
+The guest login credentials are above the console.
+
+69
+00:03:46.471 --> 00:03:50.118
+We type the user name, centos, and then the password.
+
+70
+00:03:50.118 --> 00:03:51.840
+The password does not show.
+
+71
+00:03:56.777 --> 00:03:58.649
+We run ip addr show.
+
+72
+00:03:58.649 --> 00:04:03.496
+The interface eth0 has an address from the router, marked dynamic.
+
+73
+00:04:03.496 --> 00:04:06.443
+It is the same address as the Network tile showed.
+
+74
+00:04:07.643 --> 00:04:11.140
+Last, we run curl, with the address of the lab web page.
+
+75
+00:04:11.140 --> 00:04:14.412
+The page answers, Well done, lab completed.
+
+76
+00:04:14.412 --> 00:04:18.109
+It also names our address, so the traffic went through the pod router.
+
+77
+00:04:23.276 --> 00:04:26.730
+You created a virtual machine on the shared Layer 2 network,
+
+78
+00:04:26.730 --> 00:04:30.073
+gave it a password, and checked it from its console.
+
+79
+00:04:30.073 --> 00:04:34.145
+When you have finished with a virtual machine, delete it, so that it frees its disk.
+
