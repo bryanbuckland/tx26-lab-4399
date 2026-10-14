@@ -69,7 +69,7 @@ Once migrated, the workload attaches to the shared **Localnet CUDN** (`lab-commo
 | Project | Select YOUR project (`lab-4399-ph-lab-<your lab number>`) |
 | Source provider | `ocp-gym-vc` |
 | Target provider | `host` |
-| Source network | `6a7c55c9e78638eb8066f39-segment` |
+| Source network | `6a7c556c9e78638eb8066f39-segment` |
 | Target network | `lab-4399-ph-lab-<your lab number>/lab-4399-ph-lab-<your lab number>` |
 
 **d.** Click **Create**.
