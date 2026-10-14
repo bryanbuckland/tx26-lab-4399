@@ -4,6 +4,10 @@ sidebar_position: 2
 
 # Provision a VM – Secondary Layer 2 CUDN (Routed)
 
+import LabVideo from '@site/src/components/LabVideo';
+
+<LabVideo name="lab-4399-layer2-vm" />
+
 ## Overview & Purpose
 In OpenShift, workloads and virtual machines are deployed within **Projects (Namespaces)**. While default container networking provides a cluster-wide flat overlay, OpenShift Virtualization supports **Secondary Cluster User Defined Networks (CUDNs)** to deliver dedicated, software-defined Layer 2 broadcast domains across cluster nodes.
 

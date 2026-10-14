@@ -4,6 +4,10 @@ sidebar_position: 4
 
 # Cold Migration – Migrate a VMware VM to ROVS
 
+import LabVideo from '@site/src/components/LabVideo';
+
+<LabVideo name="lab-4399-cold-migration" />
+
 ## Overview & Purpose
 Modernizing legacy virtualized infrastructure requires a predictable, automated, and non-disruptive pathway from VMware vSphere to Red Hat OpenShift Virtualization on IBM Cloud (ROVS). The **Migration Toolkit for Virtualization (MTV)** orchestrates the discovery, conversion, resource mapping, and execution needed to migrate virtual machines at scale.
 

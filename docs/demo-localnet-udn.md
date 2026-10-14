@@ -4,6 +4,10 @@ sidebar_position: 3
 
 # Provision a VM – Localnet UDN
 
+import LabVideo from '@site/src/components/LabVideo';
+
+<LabVideo name="lab-4399-localnet-vm" />
+
 ## Overview & Purpose
 When migrating enterprise VMware workloads to the cloud, applications frequently require direct Layer 2 adjacency to corporate VPC subnets, static IP/MAC preservation, and native integration with cloud security groups and routing tables.
 

@@ -1,0 +1,342 @@
+WEBVTT
+
+1
+00:00:00.500 --> 00:00:04.853
+This video shows how to create a virtual machine on a Localnet network,
+
+2
+00:00:04.853 --> 00:00:10.047
+with a fixed MAC address, in the lab for OpenShift Virtualization on IBM Cloud.
+
+3
+00:00:10.047 --> 00:00:14.969
+The virtual machine gets its IP address from the IBM Cloud VPC subnet.
+
+4
+00:00:14.969 --> 00:00:19.741
+We start in the IBM Cloud console, and finish in the OpenShift web console.
+
+5
+00:00:20.941 --> 00:00:24.738
+Before we start, here is the network this virtual machine will use.
+
+6
+00:00:24.738 --> 00:00:27.010
+It is a Localnet network.
+
+7
+00:00:27.010 --> 00:00:31.957
+It joins the virtual machine straight onto a subnet of the IBM Cloud VPC.
+
+8
+00:00:31.957 --> 00:00:36.704
+Each lab has its own Localnet network, in its own project, on its own VLAN.
+
+9
+00:00:36.704 --> 00:00:40.633
+The cluster tags the virtual machine's traffic with that VLAN,
+
+10
+00:00:40.633 --> 00:00:45.926
+and a virtual network interface, or VNI, carries it into the lab's VPC subnet.
+
+11
+00:00:45.926 --> 00:00:50.599
+Each virtual machine needs its own VNI, and the lab team already made yours.
+
+12
+00:00:50.599 --> 00:00:53.871
+A VNI has a MAC address and an IP address.
+
+13
+00:00:53.871 --> 00:00:57.014
+We give the virtual machine the same MAC address,
+
+14
+00:00:57.014 --> 00:00:59.643
+so the VPC gives it the VNI's IP address.
+
+15
+00:01:00.843 --> 00:01:03.565
+We start in the IBM Cloud console.
+
+16
+00:01:03.565 --> 00:01:06.058
+We open the menu, choose Infrastructure,
+
+17
+00:01:06.058 --> 00:01:09.587
+then Network, and click Virtual network interfaces.
+
+18
+00:01:09.587 --> 00:01:12.056
+A VNI is the VPC resource that gives a
+
+19
+00:01:12.056 --> 00:01:15.459
+virtual machine its IP address and MAC address.
+
+20
+00:01:15.459 --> 00:01:18.781
+The list is empty, because the region is Frankfurt.
+
+21
+00:01:18.781 --> 00:01:22.128
+The lab runs in Dallas, so we change the region to Dallas.
+
+22
+00:01:27.777 --> 00:01:30.624
+To see what a VNI needs, we click Create.
+
+23
+00:01:30.624 --> 00:01:35.146
+We do not create anything here, because the lab team already made your VNI.
+
+24
+00:01:35.146 --> 00:01:39.286
+The form shows an authorization error, and the resource group is empty,
+
+25
+00:01:39.286 --> 00:01:41.968
+because a lab user may not create a VNI.
+
+26
+00:01:41.968 --> 00:01:44.612
+We scroll down to the network configuration,
+
+27
+00:01:44.612 --> 00:01:47.365
+where the VPC and the subnet are chosen.
+
+28
+00:01:47.365 --> 00:01:48.737
+We go back to the list.
+
+29
+00:01:49.939 --> 00:01:52.661
+Back in the list, we find our own VNI.
+
+30
+00:01:52.661 --> 00:01:59.108
+We type its name, lab-4399-ph-lab-39-vm-1, in the search box.
+
+31
+00:01:59.108 --> 00:02:00.780
+One row is left.
+
+32
+00:02:00.780 --> 00:02:05.677
+Its Primary IP is 10.26.5.52.
+
+33
+00:02:05.677 --> 00:02:08.474
+This is the address our virtual machine will get.
+
+34
+00:02:09.675 --> 00:02:12.638
+The VNI page itself does not open for a lab user,
+
+35
+00:02:12.638 --> 00:02:15.347
+so we cannot read its MAC address here.
+
+36
+00:02:15.347 --> 00:02:18.919
+Your lab sheet gives the MAC address and the IP address.
+
+37
+00:02:18.919 --> 00:02:25.916
+We will use the MAC address from the sheet: 02:00:01:01:9F:46.
+
+38
+00:02:27.118 --> 00:02:30.390
+We can see how the VNI is attached to the cluster.
+
+39
+00:02:30.390 --> 00:02:33.136
+We go to OpenShift virtualization,
+
+40
+00:02:33.136 --> 00:02:37.687
+open virtualization-4399, and click VNI attachments.
+
+41
+00:02:37.687 --> 00:02:44.284
+The list shows the attachment of our VNI, lab-4399-ph-lab-39-vm-1.
+
+42
+00:02:45.485 --> 00:02:49.657
+We click the blue OpenShift web console button at the upper right.
+
+43
+00:02:49.657 --> 00:02:52.454
+The console opens, already signed in.
+
+44
+00:02:52.454 --> 00:02:56.776
+In the left menu, we open Virtualization, and click VirtualMachines.
+
+45
+00:02:56.776 --> 00:03:00.101
+We turn off Show only projects with VirtualMachines,
+
+46
+00:03:00.101 --> 00:03:02.723
+search for lab-39, and click our project.
+
+47
+00:03:03.923 --> 00:03:05.395
+We click Create.
+
+48
+00:03:05.395 --> 00:03:08.192
+The wizard opens on Deployment details.
+
+49
+00:03:08.192 --> 00:03:11.564
+We name the virtual machine nt-localnet-vm.
+
+50
+00:03:11.564 --> 00:03:15.586
+In Guest OS, we choose Other Linux and centos.stream9.
+
+51
+00:03:15.586 --> 00:03:18.883
+In Boot source, we select centos-stream9.
+
+52
+00:03:18.883 --> 00:03:21.591
+In Compute resources, we choose General Purpose,
+
+53
+00:03:21.591 --> 00:03:23.905
+and change the size from medium to small.
+
+54
+00:03:26.075 --> 00:03:28.447
+Step 5 is Customization.
+
+55
+00:03:28.447 --> 00:03:30.594
+We open the Network tab.
+
+56
+00:03:30.594 --> 00:03:34.591
+On the default interface, we click the kebab menu, and choose Edit.
+
+57
+00:03:34.591 --> 00:03:41.363
+In the Network list, we choose lab-4399-ph-lab-39, our own Localnet network.
+
+58
+00:03:41.363 --> 00:03:45.410
+We expand Advanced Settings, and type the MAC address from the sheet.
+
+59
+00:03:45.410 --> 00:03:46.357
+We click Save.
+
+60
+00:03:47.898 --> 00:03:50.295
+Next, we set the guest password.
+
+61
+00:03:50.295 --> 00:03:54.592
+We open the Initial run tab, and click Edit in the Cloud-init section.
+
+62
+00:03:54.592 --> 00:03:56.489
+The user is centos.
+
+63
+00:03:56.489 --> 00:04:00.661
+We type the password in the password field, and it shows only as dots.
+
+64
+00:04:00.661 --> 00:04:01.933
+Then we click Apply.
+
+65
+00:04:03.133 --> 00:04:07.455
+We click Next to reach Review and create, and then Create VirtualMachine.
+
+66
+00:04:07.455 --> 00:04:09.627
+The page for our virtual machine opens.
+
+67
+00:04:10.827 --> 00:04:14.674
+The status changes from Provisioning, to Starting, to Running.
+
+68
+00:04:14.674 --> 00:04:16.521
+This takes under a minute.
+
+69
+00:04:16.521 --> 00:04:19.418
+When it runs, we look at the Network tile.
+
+70
+00:04:19.418 --> 00:04:23.415
+The IP address is the one on our lab sheet, from the VPC subnet.
+
+71
+00:04:25.045 --> 00:04:29.317
+We click the header of the Network tile, to open the network configuration.
+
+72
+00:04:29.317 --> 00:04:33.889
+The network is our Localnet network, and the MAC address is the one we typed.
+
+73
+00:04:33.889 --> 00:04:35.561
+It matches the VNI.
+
+74
+00:04:36.763 --> 00:04:40.835
+We open the Console tab, and type the user name, centos.
+
+75
+00:04:40.835 --> 00:04:42.782
+Then we type the password.
+
+76
+00:04:42.782 --> 00:04:44.829
+It does not show on screen.
+
+77
+00:04:44.829 --> 00:04:46.151
+We wait for the prompt.
+
+78
+00:04:47.351 --> 00:04:49.223
+We run ip addr show.
+
+79
+00:04:49.223 --> 00:04:54.270
+The interface eth0 has the reserved address from the VPC, marked dynamic.
+
+80
+00:04:55.471 --> 00:04:58.968
+Last, we run curl, with the address of the lab web page.
+
+81
+00:04:58.968 --> 00:05:03.315
+The page answers, Well done, lab completed, and it names our address.
+
+82
+00:05:03.315 --> 00:05:07.337
+The virtual machine is on its own lab network, in the VPC subnet.
+
+83
+00:05:08.537 --> 00:05:12.838
+You created a virtual machine with a fixed MAC address on a Localnet network,
+
+84
+00:05:12.838 --> 00:05:17.434
+set its password with cloud init, and checked its IP address from the guest.
+
+85
+00:05:17.434 --> 00:05:21.506
+When you have finished with a virtual machine, delete it, so that it frees its disk.
+
