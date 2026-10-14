@@ -71,9 +71,11 @@ The diagram below illustrates the shared Secondary Layer 2 CUDN topology, showin
 
 ### Step 2 – Navigate to Virtualization
 
-**a.** In the dropdown, click **Virtualization**.
+**a.** In the left menu, click **Virtualization**.
 
 **b.** Click VirtualMachines on the left menu bar and then click the Virtual Machines tab in the main window.
+
+> The first time you open Virtualization, a welcome dialog and some tips appear. Close them. A message "An error occurred: Forbidden" on the Overview tab is expected.
 
 **c.** If there is no blue 'create' button visible at the top right of the screen, click 'Settings' on the left menu bar and select your the project name relating to the number / login details provided by your workshop instructor in the Project dropdown. The return to the Virtual Machines tab, using the steps in **a.**
 
@@ -121,9 +123,9 @@ The diagram below illustrates the shared Secondary Layer 2 CUDN topology, showin
 
 ![Configuration → Network tab with kebab Edit](/img/lab/customize-network.png)
 
-**h.** In the **Network** dropdown, select the **Layer-2** network binding type attached to the shared CUDN (`lab-4399-ph-layer2-routed-1`). Click **Save**.
+**h.** In the **Network** list, choose `lab-4399-ph-lab-<your lab number>/lab-4399-ph-layer2-routed-1`, the shared Layer 2 network. Click **Save**.
 
-![Layer-2 network binding type selected](/img/lab/edit-net-interface.png)
+![Shared Layer 2 network selected](/img/lab/edit-net-interface.png)
 
 **i.** Click **Next**
 
