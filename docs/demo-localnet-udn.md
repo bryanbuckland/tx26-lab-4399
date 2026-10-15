@@ -2,7 +2,7 @@
 sidebar_position: 3
 ---
 
-# Provision a VM – Localnet UDN
+# Provision a VM – Localnet CUDN
 
 import LabVideo from '@site/src/components/LabVideo';
 
