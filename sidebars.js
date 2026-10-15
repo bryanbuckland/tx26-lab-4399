@@ -10,33 +10,33 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: 'Demo – Provision VMs',
+      label: 'Provisioning VMs',
       items: [
         {
           type: 'doc',
           id: 'demo-layer2-udn',
-          label: 'Secondary Layer 2 CUDN',
+          label: 'VM with Secondary Layer 2 Network (CUDN)',
         },
         {
           type: 'doc',
           id: 'demo-localnet-udn',
-          label: 'Localnet UDN',
+          label: 'VM with Localnet UDN',
         },
       ],
     },
     {
       type: 'category',
-      label: 'Migration Toolkit for Virtualization',
+      label: 'Migrating Workloads from VMware',
       items: [
         {
           type: 'doc',
           id: 'cold-migration',
-          label: 'Cold Migration',
+          label: 'Cold Migration from VMware',
         },
         {
           type: 'doc',
           id: 'warm-migration',
-          label: 'Warm Migration',
+          label: 'Warm Migration from VMware',
         },
       ],
     },

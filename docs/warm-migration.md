@@ -106,6 +106,8 @@ Click **Next**.
 
 **b.** Select your existing network map (created in Lab 3) from the dropdown.
 
+> ⚠️ **Verify target network:** Confirm the network map's target network is set to `lab-4399-ph-lab-<your lab number>/lab-common`. This ensures your migrated VM attaches to the shared `lab-common` CUDN (VLAN 500) rather than the per-lab namespace network.
+
 ![Network map selection](/img/lab/image118.png)
 
 **c.** Click **Next**.
