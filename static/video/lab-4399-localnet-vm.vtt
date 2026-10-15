@@ -133,210 +133,210 @@ Its Primary IP is 10.26.5.52.
 This is the address our virtual machine will get.
 
 34
-00:02:09.675 --> 00:02:12.638
-The VNI page itself does not open for a lab user,
+00:02:09.675 --> 00:02:12.647
+We click our VNI to open its page.
 
 35
-00:02:12.638 --> 00:02:15.347
-so we cannot read its MAC address here.
+00:02:12.647 --> 00:02:14.844
+The page shows the MAC address.
 
 36
-00:02:15.347 --> 00:02:18.919
-Your lab sheet gives the MAC address and the IP address.
+00:02:14.844 --> 00:02:20.966
+The MAC address is 02:00:01:01:9F:46.
 
 37
-00:02:18.919 --> 00:02:25.916
-We will use the MAC address from the sheet: 02:00:01:01:9F:46.
+00:02:20.966 --> 00:02:23.713
+We will use this MAC address for our virtual machine.
 
 38
-00:02:27.118 --> 00:02:30.390
+00:02:24.914 --> 00:02:28.186
 We can see how the VNI is attached to the cluster.
 
 39
-00:02:30.390 --> 00:02:33.136
+00:02:28.186 --> 00:02:30.932
 We go to OpenShift virtualization,
 
 40
-00:02:33.136 --> 00:02:37.687
+00:02:30.932 --> 00:02:35.483
 open virtualization-4399, and click VNI attachments.
 
 41
-00:02:37.687 --> 00:02:44.284
+00:02:35.483 --> 00:02:42.080
 The list shows the attachment of our VNI, lab-4399-ph-lab-39-vm-1.
 
 42
-00:02:45.485 --> 00:02:49.657
+00:02:43.281 --> 00:02:47.453
 We click the blue OpenShift web console button at the upper right.
 
 43
-00:02:49.657 --> 00:02:52.454
+00:02:47.453 --> 00:02:50.250
 The console opens, already signed in.
 
 44
-00:02:52.454 --> 00:02:56.776
+00:02:50.250 --> 00:02:54.572
 In the left menu, we open Virtualization, and click VirtualMachines.
 
 45
-00:02:56.776 --> 00:03:00.101
+00:02:54.572 --> 00:02:57.897
 We turn off Show only projects with VirtualMachines,
 
 46
-00:03:00.101 --> 00:03:02.723
+00:02:57.897 --> 00:03:00.519
 search for lab-39, and click our project.
 
 47
-00:03:03.923 --> 00:03:05.395
+00:03:01.719 --> 00:03:03.191
 We click Create.
 
 48
-00:03:05.395 --> 00:03:08.192
+00:03:03.191 --> 00:03:05.988
 The wizard opens on Deployment details.
 
 49
-00:03:08.192 --> 00:03:11.564
+00:03:05.988 --> 00:03:09.360
 We name the virtual machine nt-localnet-vm.
 
 50
-00:03:11.564 --> 00:03:15.586
+00:03:09.360 --> 00:03:13.382
 In Guest OS, we choose Other Linux and centos.stream9.
 
 51
-00:03:15.586 --> 00:03:18.883
+00:03:13.382 --> 00:03:16.679
 In Boot source, we select centos-stream9.
 
 52
-00:03:18.883 --> 00:03:21.591
+00:03:16.679 --> 00:03:19.387
 In Compute resources, we choose General Purpose,
 
 53
-00:03:21.591 --> 00:03:23.905
+00:03:19.387 --> 00:03:21.701
 and change the size from medium to small.
 
 54
-00:03:26.075 --> 00:03:28.447
+00:03:23.871 --> 00:03:26.243
 Step 5 is Customization.
 
 55
-00:03:28.447 --> 00:03:30.594
+00:03:26.243 --> 00:03:28.390
 We open the Network tab.
 
 56
-00:03:30.594 --> 00:03:34.591
+00:03:28.390 --> 00:03:32.387
 On the default interface, we click the kebab menu, and choose Edit.
 
 57
-00:03:34.591 --> 00:03:41.363
+00:03:32.387 --> 00:03:39.159
 In the Network list, we choose lab-4399-ph-lab-39, our own Localnet network.
 
 58
-00:03:41.363 --> 00:03:45.410
-We expand Advanced Settings, and type the MAC address from the sheet.
+00:03:39.159 --> 00:03:43.706
+We expand Advanced Settings, and type the MAC address from the VNI page.
 
 59
-00:03:45.410 --> 00:03:46.357
+00:03:43.706 --> 00:03:44.653
 We click Save.
 
 60
-00:03:47.898 --> 00:03:50.295
+00:03:46.194 --> 00:03:48.591
 Next, we set the guest password.
 
 61
-00:03:50.295 --> 00:03:54.592
+00:03:48.591 --> 00:03:52.888
 We open the Initial run tab, and click Edit in the Cloud-init section.
 
 62
-00:03:54.592 --> 00:03:56.489
+00:03:52.888 --> 00:03:54.785
 The user is centos.
 
 63
-00:03:56.489 --> 00:04:00.661
+00:03:54.785 --> 00:03:58.957
 We type the password in the password field, and it shows only as dots.
 
 64
-00:04:00.661 --> 00:04:01.933
+00:03:58.957 --> 00:04:00.229
 Then we click Apply.
 
 65
-00:04:03.133 --> 00:04:07.455
+00:04:01.429 --> 00:04:05.751
 We click Next to reach Review and create, and then Create VirtualMachine.
 
 66
-00:04:07.455 --> 00:04:09.627
+00:04:05.751 --> 00:04:07.923
 The page for our virtual machine opens.
 
 67
-00:04:10.827 --> 00:04:14.674
+00:04:09.123 --> 00:04:12.970
 The status changes from Provisioning, to Starting, to Running.
 
 68
-00:04:14.674 --> 00:04:16.521
+00:04:12.970 --> 00:04:14.817
 This takes under a minute.
 
 69
-00:04:16.521 --> 00:04:19.418
+00:04:14.817 --> 00:04:17.714
 When it runs, we look at the Network tile.
 
 70
-00:04:19.418 --> 00:04:23.415
+00:04:17.714 --> 00:04:21.711
 The IP address is the one on our lab sheet, from the VPC subnet.
 
 71
-00:04:25.045 --> 00:04:29.317
+00:04:23.341 --> 00:04:27.613
 We click the header of the Network tile, to open the network configuration.
 
 72
-00:04:29.317 --> 00:04:33.889
+00:04:27.613 --> 00:04:32.185
 The network is our Localnet network, and the MAC address is the one we typed.
 
 73
-00:04:33.889 --> 00:04:35.561
+00:04:32.185 --> 00:04:33.857
 It matches the VNI.
 
 74
-00:04:36.763 --> 00:04:40.835
+00:04:35.059 --> 00:04:39.131
 We open the Console tab, and type the user name, centos.
 
 75
-00:04:40.835 --> 00:04:42.782
+00:04:39.131 --> 00:04:41.078
 Then we type the password.
 
 76
-00:04:42.782 --> 00:04:44.829
+00:04:41.078 --> 00:04:43.125
 It does not show on screen.
 
 77
-00:04:44.829 --> 00:04:46.151
+00:04:43.125 --> 00:04:44.447
 We wait for the prompt.
 
 78
-00:04:47.351 --> 00:04:49.223
+00:04:45.647 --> 00:04:47.519
 We run ip addr show.
 
 79
-00:04:49.223 --> 00:04:54.270
+00:04:47.519 --> 00:04:52.566
 The interface eth0 has the reserved address from the VPC, marked dynamic.
 
 80
-00:04:55.471 --> 00:04:58.968
+00:04:53.767 --> 00:04:57.264
 Last, we run curl, with the address of the lab web page.
 
 81
-00:04:58.968 --> 00:05:03.315
+00:04:57.264 --> 00:05:01.611
 The page answers, Well done, lab completed, and it names our address.
 
 82
-00:05:03.315 --> 00:05:07.337
+00:05:01.611 --> 00:05:05.633
 The virtual machine is on its own lab network, in the VPC subnet.
 
 83
-00:05:08.537 --> 00:05:12.838
+00:05:06.833 --> 00:05:11.134
 You created a virtual machine with a fixed MAC address on a Localnet network,
 
 84
-00:05:12.838 --> 00:05:17.434
+00:05:11.134 --> 00:05:15.730
 set its password with cloud init, and checked its IP address from the guest.
 
 85
-00:05:17.434 --> 00:05:21.506
+00:05:15.730 --> 00:05:19.802
 When you have finished with a virtual machine, delete it, so that it frees its disk.
 

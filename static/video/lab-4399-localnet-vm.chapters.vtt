@@ -5,22 +5,22 @@ WEBVTT
 The Localnet network
 
 2
-00:01:00.343 --> 00:02:44.985
+00:01:00.343 --> 00:02:42.781
 Find your network interface
 
 3
-00:02:44.985 --> 00:03:03.423
+00:02:42.781 --> 00:03:01.219
 Open the OpenShift console
 
 4
-00:03:03.423 --> 00:03:25.575
+00:03:01.219 --> 00:03:23.371
 Create the virtual machine
 
 5
-00:03:25.575 --> 00:04:10.327
+00:03:23.371 --> 00:04:08.623
 Set the network and password
 
 6
-00:04:10.327 --> 00:05:22.206
+00:04:08.623 --> 00:05:20.502
 Check the virtual machine
 
