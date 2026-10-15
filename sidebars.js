@@ -15,12 +15,12 @@ const sidebars = {
         {
           type: 'doc',
           id: 'demo-layer2-udn',
-          label: 'VM with Secondary Layer 2 Network (CUDN)',
+          label: 'VM with Secondary Layer 2 CUDN',
         },
         {
           type: 'doc',
           id: 'demo-localnet-udn',
-          label: 'VM with Localnet UDN',
+          label: 'VM with Localnet CUDN',
         },
       ],
     },
