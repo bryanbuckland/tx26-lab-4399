@@ -2,7 +2,7 @@
 sidebar_position: 4
 ---
 
-# Cold Migration – Migrate a VMware VM to ROVS
+# Cold Migration from VMware
 
 import LabVideo from '@site/src/components/LabVideo';
 
