@@ -67,8 +67,6 @@ The diagram below illustrates the shared Secondary Layer 2 CUDN topology, showin
 
 **d.** Click the blue **OpenShift web console** button (upper right of the cluster detail page).
 
-![OpenShift web console button](/img/lab/image18.png)
-
 > The OpenShift console opens in a new tab, already authenticated.
 
 ---
