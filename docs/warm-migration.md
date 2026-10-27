@@ -54,7 +54,7 @@ Once migrated, production workloads can attach to the shared **Localnet CUDN** (
 ### Step 0 - Delete your cold migrated VM
 This lab warm-migrates the same virtual machine that you migrated in the cold migration lab. You can't have the same VM running twice in your environment due to network conflicts, so we need to delete the cold-migrated instance first.
 
-**a.** In the OpenShigt web console left navigation menu, click **Virtual Machines**, then the **Virtual machines** tab in the main screen area. You will see a table view of the three virtual machines that you have created so far.
+**a.** In the OpenShift web console left navigation menu, click **Virtual Machines**, then the **Virtual machines** tab in the main screen area. You will see a table view of the three virtual machines that you have created so far.
 
 **b.** click the 3 dots (⋮) at the right-hand end of the row for the virtual machine called `lab<your-lab-number>` (e.g. `lab-1').
 

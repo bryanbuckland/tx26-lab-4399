@@ -51,7 +51,7 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 ### Step 1 – Understand and Inspect the Virtual Network Interface (VNI)
 
-> 💡 **Note on Permissions:** In this training environment, your VNI has already been created and attached to the cluster worker nodes by the administrators. We will explore the VNI configuration form, but **DO NOT CREATE A NEW VNI**.
+> 💡 **Note on Permissions:** In this training environment, your VNI has already been created and attached to the cluster worker nodes by the administrators. We will explore the VNI configuration form, but <span style={{color: 'red'}}>**DO NOT CREATE A NEW VNI**</span>.
 
 **a.** In the IBM Cloud console, click the hamburger menu (upper left) → **Infrastructure** → **Network** → **Virtual network interfaces**.
 
