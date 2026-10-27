@@ -57,7 +57,7 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 ![Infrastructure → Network → Virtual network interfaces](/img/lab/image49.png)
 
-The list opens on the wrong region and looks empty. Set **Region** to **Dallas (us-south)** before you continue.
+**The list opens on the wrong region and looks empty. Set **Region** to **Dallas (us-south)** in the location dropdown, before you continue.**
 
 **b.** Click **Create** to view the VNI creation wizard.
 
