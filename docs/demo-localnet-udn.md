@@ -79,7 +79,7 @@ As a lab user you will see an "Authorization error" on this form, and the **Reso
 
 ![Network configuration with subnet selection](/img/lab/image54.png)
 
-**e.** ⚠️ **DO NOT CLICK CREATE.** Scroll back to the top of the screen and click back to the **Virtual network interfaces** list.
+**e.** ⚠️ <span style={{color: 'red'}}>**DO NOT CLICK CREATE.**</span> Scroll back to the top of the screen and click back to the **Virtual network interfaces** list.
 
 ![Create VNI button](/img/lab/back-to-vni-list.png)
 
