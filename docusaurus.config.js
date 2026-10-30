@@ -77,7 +77,14 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/logo.png',
+      image: 'img/og-preview.png',
+      metadata: [
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { property: 'og:image:type', content: 'image/png' },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { property: 'og:image:alt', content: 'LAB-4399: From VMware to OpenShift Virtualization' },
+      ],
       colorMode: {
         defaultMode: 'light',
         disableSwitch: true,
