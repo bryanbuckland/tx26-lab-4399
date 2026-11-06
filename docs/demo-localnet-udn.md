@@ -63,7 +63,7 @@ The diagram below illustrates the per-lab Secondary Localnet architecture. Each 
 
 ![Create VNI button](/img/lab/image50.png)
 
-**c.** Take a look at the standard fields requred to create a new VNI. Here's some example values - don't fill these in.
+**c.** Take a look at the standard fields required to create a new VNI. Here's some example values - don't fill these in.
 
 | Field | Example Value |
 | :--- | :--- |
@@ -89,11 +89,11 @@ As a lab user you will see an "Authorization error" on this form, and the **Reso
 
 **a.** Locate the VNI corresponding to **YOUR** lab number in the list and click on it.
 
-> **Pattern:** `lab-4399-ph-lab-common-lab-<your lab number>` (e.g. `lab-4399-ph-lab-common-lab-1`)
+> **Pattern:** `lab-4399-ph-lab-<your lab number>-vm-1` (e.g. `lab-4399-ph-lab-1-vm-1`)
 
 ![VNI list with lab number highlighted](/img/lab/image57.png)
 
-**b.** Make a note of the **MAC address** and **Primary IP** displayed on the VNI detail page. You will need this MAC address in Step 4g and use the Primary IP to verify your configuration at the end of the lab.
+**b.** Make a note of the **MAC address** and **Primary IP** displayed on the VNI detail page. You will need this MAC address in Step 5h and use the Primary IP to verify your configuration at the end of the lab.
 
 **c.** *(Optional)* Inspect the VNI Attachment:
 1. Click the hamburger menu → **Infrastructure** → **OpenShift virtualization** → **virtualization-4399**.
@@ -111,7 +111,7 @@ As a lab user you will see an "Authorization error" on this form, and the **Reso
 
 **c.** Click VirtualMachines on the left menu bar and then click the Virtual Machines tab in the main window. Check that you see a blue **create** button at the top right of the screen.
 
-**d.** If there is no blue 'create' button visible at the top right of the screen, click 'Settings' on the left menu bar and select your the project name relating to the number / login details provided by your workshop instructor in the Project dropdown. The return to the Virtual Machines tab, using the steps in **a.**
+**d.** If there is no blue 'create' button visible at the top right of the screen, click 'Settings' on the left menu bar and select your assigned project name relating to the number / login details provided by your workshop instructor in the Project dropdown. Then return to the Virtual Machines tab, using the steps in **a.**
 
 ![Virtualization → VirtualMachines menu](/img/lab/nav-to-virtualization.png)
 
@@ -128,13 +128,13 @@ As a lab user you will see an "Authorization error" on this form, and the **Reso
 **c.** Set the VM Name to `<initials>-localnet-vm` (e.g. `js-localnet-vm`). You can add a description too.
 
 
-**d.**  Scroll donwn and check the details under Location. This should already be set to your assigned project. If not, click the pencil icon. In the Project dropdown, select your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
+**d.**  Scroll down and check the details under Location. This should already be set to your assigned project. If not, click the pencil icon. In the Project dropdown, select your assigned project: **`lab-4399-ph-lab-<your lab number>`**.
 
 **e.** click **Next**
 
 ---
 
-### Step 4 – Choose an operating system, Boot Source and Compute Resources
+### Step 5 – Choose an Operating System, Boot Source, Compute Resources and Network
 
 **a.** Click Other Linux and from the dropdown, Select **centos-stream10**.
 
@@ -144,7 +144,7 @@ As a lab user you will see an "Authorization error" on this form, and the **Reso
 
 **c.** On the Boot Source screen, click to highlight centos-stream10
 
-**d.** click Next
+**d.** Click **Next**
 
 ![centos-stream9 selected](/img/lab/boot-source.png)
 
@@ -159,10 +159,10 @@ As a lab user you will see an "Authorization error" on this form, and the **Reso
 ![Configuration → Network tab with kebab Edit](/img/lab/customize-network.png)
 
 **h.** In the Edit network interface dialog:
-- **Network:** Select the Localnet CUDN matching your lab: `lab-4399-ph-lab-<your lab number>/lab-4399-ph-lab-common`.
+- **Network:** Select the dedicated Localnet CUDN matching your lab: `lab-4399-ph-lab-<your lab number>/lab-4399-ph-lab-<your lab number>` (e.g. `lab-4399-ph-lab-1/lab-4399-ph-lab-1`).
 - **Expand Advanced Settings** → enter the **MAC address** copied from your VPC VNI in Step 2.
 
-![MAC address set in Advanced Settings](/img/lab/advanced-network1.png)
+![MAC address set in Advanced Settings](/img/lab/advanced-network.png)
 
 **i.** Click **Save**.
 
@@ -170,9 +170,9 @@ This has the effect of setting the network attachment and pinning the MAC addres
 
 ---
 
-### Step 5 – Set the Guest Password with Cloud-init
+### Step 6 – Set the Guest Password with Cloud-init
 
-**a.** In the the Customization pane, click the **Initial run** tab.
+**a.** In the Customization pane, click the **Initial run** tab.
 
 ![Initial run tab](/img/lab/click-init-run.png)
 
@@ -183,13 +183,13 @@ This has the effect of setting the network attachment and pinning the MAC addres
 
 ---
 
-### Step 6 – Create and Start the VM
+### Step 7 – Create and Start the VM
 
 **a.** Check the new VM's configuration details and click the blue **Create VirtualMachine** button at the bottom of the screen. This will create the VM and start it.
 
 ---
 
-### Step 7 – Watch the VM Boot
+### Step 8 – Watch the VM Boot
 
 **a.** Return to the **VirtualMachines** list. Observe the status progression:
 
@@ -199,9 +199,9 @@ Provisioning → Starting → Running
 
 ---
 
-### Step 8 – Inspect the VM Network Overview
+### Step 9 – Inspect the VM Network Overview
 
-**a.** Scroll down slightly to view the **Network tile** on the righ hand side — verify that the IP matches the reserved IP from your VPC VNI. This screenshot shows an example.
+**a.** Scroll down slightly to view the **Network tile** on the right-hand side — verify that the IP matches the reserved IP from your VPC VNI. This screenshot shows an example.
 
 ![Network configuration](/img/lab/network-tile.png)
 
@@ -213,7 +213,7 @@ Provisioning → Starting → Running
 
 ---
 
-### Step 9 – Validate Guest OS Network & Connectivity
+### Step 10 – Validate Guest OS Network & Connectivity
 
 **a.** Click the **Console** tab. Log in as user `centos` with password `ChangeMe123!`.
 
